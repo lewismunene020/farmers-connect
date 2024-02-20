@@ -1,6 +1,35 @@
-import React from "react";
-
+import React, { useState, useRef } from "react";
+import axios from "axios";
 const Contact = () => {
+  let url = "http://localhost:5000/contact/";
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  const submit = (e) => {
+    e.preventDefault();
+    // alert(`
+    //   Name: ${name}
+    //   Email: ${email}
+    //   Subject: ${subject}
+    //   Message: ${message}
+    // `);
+
+    axios
+      .post(url, {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message,
+      })
+      .then((res) => {
+        let res_data = res.data;
+        alert(res_data.message);
+      });
+  };
+
   return (
     <>
       <div id="content">
@@ -23,10 +52,11 @@ const Contact = () => {
                     If you have any questions, feel free to contact us.
                   </p>
                 </center>
-                <form action="contact.php" method="post">
+                <form onSubmit={submit} method="post">
                   <div className="form-group">
                     <label>Name</label>
                     <input
+                      onChange={(e) => setName(e.target.value)}
                       type="text"
                       className="form-control"
                       name="name"
@@ -37,6 +67,7 @@ const Contact = () => {
                   <div className="form-group">
                     <label>E-mail</label>
                     <input
+                      onChange={(e) => setEmail(e.target.value)}
                       type="email"
                       className="form-control"
                       name="email"
@@ -47,6 +78,7 @@ const Contact = () => {
                   <div className="form-group">
                     <label>Subject</label>
                     <input
+                      onChange={(e) => setSubject(e.target.value)}
                       type="text"
                       className="form-control"
                       name="subject"
@@ -57,6 +89,7 @@ const Contact = () => {
                   <div className="form-group">
                     <label>Message</label>
                     <textarea
+                      onChange={(e) => setMessage(e.target.value)}
                       name="message"
                       className="form-control"
                       placeholder="Message.."
