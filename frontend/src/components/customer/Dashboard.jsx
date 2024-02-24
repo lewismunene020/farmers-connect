@@ -2,7 +2,7 @@ import React from 'react';
 import Sidebar from './Sidebar';
 import Orders from './Orders';
 
-class Dashboard extends React.Component {
+class CustomerDashboard extends React.Component {
   render() {
     return (
       <div id="content">
@@ -31,4 +31,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default CustomerDashboard;
