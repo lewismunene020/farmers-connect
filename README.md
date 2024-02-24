@@ -43,6 +43,19 @@ python manage.py runserver
 
 ```
 
+## backend database update
+
+- ## Inside the backend folder create a file named: `.env`
+- ## To use Mysql Database , add the line below inside the `.env`
+
+```
+DATABASE_URL=mysql://<MYSQL_USERNAME>:<MYSQL_PASSWORD>@<MYSQL_HOST>:<MYSQL_PORT>/<MYSQL_DATABASE_NAME>
+
+
+```
+
+- Feel Free to change the values above accoring to your system
+
 ## Frontend setup
 
 ```
