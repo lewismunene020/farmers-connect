@@ -7,4 +7,5 @@ djangorestframework
 
 
 PyJWT 
-
+mysql-connector-python
+mysqlclient
