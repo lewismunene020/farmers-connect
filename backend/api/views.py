@@ -27,13 +27,16 @@ class ProductsByCategory(generics.ListAPIView):
 class CountyList(generics.ListAPIView):
     queryset = County.objects.all()
     serializer_class = CountySerializer
+    permission_classes = []
 
 class SubCountyList(generics.ListAPIView):
     queryset = SubCounty.objects.all()
     serializer_class = SubCountySerializer
+    permission_classes = []
 
 class SubCountyByCounty(generics.ListAPIView):
     serializer_class = SubCountySerializer
+    permission_classes = []
 
     def get_queryset(self):
         county_id = self.kwargs['county_id']
