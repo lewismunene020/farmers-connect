@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import  pymysql 
+import  os
+import  dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h@(z!f!&5f%cddi#e!jp#8b3yc@qp!w3g#5u6j69-fgf*jt@_3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =  os.environ.get("DEBUG") != "False"
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -67,6 +71,7 @@ INSTALLED_APPS = [
     'rest_framework' ,
     "backend",
     "accounts",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -104,16 +109,34 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'farmers_connect',
+#         'USER': 'ancentus',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',  # Or the IP address of your MySQL server
+#         'PORT': '3306',       # MySQL default port
+#     }
+# }
+
+
+database_url = dj_database_url.config(
+    default=os.environ.get('DATABASE_URL') if os.environ.get("DATABASE_URL") else "sqlite:///db.sqlite3"
+)
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'farmers_connect',
-        'USER': 'ancentus',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',  # Or the IP address of your MySQL server
-        'PORT': '3306',       # MySQL default port
-    }
+    'default': database_url
 }
+
+
+
+
+pymysql.version_info = (1, 4, 3, "final", 0)
+# pymysql.version_info = (1, 0, 2, "final", 0)
+
+pymysql.install_as_MySQLdb()
+
 
 
 # Password validation
