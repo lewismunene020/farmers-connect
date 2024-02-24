@@ -15,6 +15,11 @@ class OrderCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user)
 
+class OrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = []
+
 class CustomerOrdersAPIView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = []

@@ -6,6 +6,7 @@ from .views import (
     OrderUpdateAPIView,
     OrderDeleteAPIView,
     OrderCreateAPIView,
+    OrderListAPIView,
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('api/order/<int:pk>/update/', OrderUpdateAPIView.as_view(), name='order-update'),
     path('api/order/<int:pk>/delete/', OrderDeleteAPIView.as_view(), name='order-delete'),
     path('api/order/create/', OrderCreateAPIView.as_view(), name='order-create'),
+    path('api/orders/', OrderListAPIView.as_view(), name='order-list'),
 ]
