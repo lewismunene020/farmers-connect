@@ -6,15 +6,18 @@ from .serializers import OrderSerializer
 class OrderDetailAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = []
 
 class OrderCreateAPIView(generics.CreateAPIView):
     serializer_class = OrderSerializer
+    permission_classes = []
 
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user)
 
 class CustomerOrdersAPIView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
+    permission_classes = []
 
     def get_queryset(self):
         customer_id = self.kwargs.get('customer_id')
@@ -22,6 +25,7 @@ class CustomerOrdersAPIView(generics.ListCreateAPIView):
 
 class FarmerOrdersAPIView(generics.ListAPIView):
     serializer_class = OrderSerializer
+    permission_classes = []
 
     def get_queryset(self):
         farmer_id = self.kwargs.get('farmer_id')
@@ -30,7 +34,9 @@ class FarmerOrdersAPIView(generics.ListAPIView):
 class OrderUpdateAPIView(generics.UpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = []
 
 class OrderDeleteAPIView(generics.DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = []
