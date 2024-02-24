@@ -1,8 +1,8 @@
 import React from 'react';
-import Sidebar from './Sidebar';
-import Orders from './Orders';
+import SideBar from './SideBar'; // Assuming SideBar.js is in the same directory
+import Orders from './Orders'; // Assuming Orders.js is in the same directory
 
-class CustomerDashboard extends React.Component {
+class Dashboard extends React.Component {
   render() {
     return (
       <div id="content">
@@ -18,7 +18,7 @@ class CustomerDashboard extends React.Component {
             </ul>
           </div>
           <div className="col-md-3">
-            <Sidebar />
+            <SideBar />
           </div>
           <div className="col-md-9">
             <div className="box">
@@ -31,4 +31,4 @@ class CustomerDashboard extends React.Component {
   }
 }
 
-export default CustomerDashboard;
+export default Dashboard;
