@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "accounts",
     "api",
     "orders",
+    "farms",
 ]
 
 MIDDLEWARE = [
