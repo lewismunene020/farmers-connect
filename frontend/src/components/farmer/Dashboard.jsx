@@ -1,7 +1,7 @@
 import React from 'react';
 import SideBar from './SideBar';
 
-class Dashboard extends React.Component {
+class FarmerDashboard extends React.Component {
   render() {
     return (
       <div id="content">
@@ -30,4 +30,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default FarmerDashboard;

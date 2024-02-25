@@ -1,8 +1,20 @@
 import React from 'react';
 
 class SideBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeMenu: ''
+    };
+  }
+
+  handleMenuClick = (menuName) => {
+    this.setState({
+      activeMenu: this.state.activeMenu === menuName ? '' : menuName
+    });
+  };
+
   render() {
-    // Assuming we have access to farmer name and image via props or state
     const farmerName = "Anthony Kamau"; // Example farmer name
     const farmerImage = "/avatar.png"; // Image path
 
@@ -17,10 +29,39 @@ class SideBar extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="nav-pills nav-stacked nav">
-            <li className={this.props.activeTab === 'my_orders' ? 'active' : ''}>
-              <a href="dashboard">
-                <i className="fa fa-list"></i> My Orders
+            <li className={this.state.activeMenu === 'dashboard' ? 'active' : ''}>
+              <a href="#" onClick={() => this.handleMenuClick('dashboard')}>
+                <i className="fa fa-dashboard"></i> Dashboard
               </a>
+            </li>
+            <li className={this.state.activeMenu === 'farms' ? 'active' : ''}>
+              <a onClick={() => this.handleMenuClick('farms')}>
+                <i className="fa fa-building"></i> Farms
+              </a>
+              <ul className={this.state.activeMenu === 'farms' ? 'nav-pills nav-stacked nav' : 'collapse'}>
+                <li><a href="#">- Add Farm</a></li>
+                <li><a href="#">- My Farms</a></li>
+              </ul>
+            </li>
+            <li className={this.state.activeMenu === 'orders' ? 'active' : ''}>
+              <a onClick={() => this.handleMenuClick('orders')}>
+                <i className="fa fa-list"></i> Orders
+              </a>
+              <ul className={this.state.activeMenu === 'orders' ? 'nav-pills nav-stacked nav' : 'collapse'}>
+                <li><a href="#">- My Orders</a></li>
+                <li><a href="#">- Customer Orders</a></li>
+                <li><a href="#">- Recommended For Me</a></li>
+              </ul>
+            </li>
+            <li className={this.state.activeMenu === 'demand_analysis' ? 'active' : ''}>
+              <a onClick={() => this.handleMenuClick('demand_analysis')}>
+                <i className="fa fa-line-chart"></i> Demand Analysis
+              </a>
+              <ul className={this.state.activeMenu === 'demand_analysis' ? 'nav-pills nav-stacked nav' : 'collapse'}>
+                <li><a href="#">- Most Sought Products</a></li>
+                <li><a href="#">- Demand by Month of Year</a></li>
+                <li><a href="#">- Demand by Location</a></li>
+              </ul>
             </li>
             <li>
               <a href="logout">
