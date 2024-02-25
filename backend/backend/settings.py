@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "backend",
     "accounts",
     "api",
+    "orders",
 ]
 
 MIDDLEWARE = [
