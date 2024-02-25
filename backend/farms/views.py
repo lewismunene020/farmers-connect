@@ -34,6 +34,20 @@ class FarmDeleteAPIView(generics.DestroyAPIView):
     permission_classes = []
 
 class FarmListAPIView(generics.ListAPIView):
-    queryset = Farm.objects.all()
     serializer_class = FarmSerializer
     permission_classes = []
+
+    def get_queryset(self):
+        queryset = Farm.objects.all()
+        product_id = self.request.query_params.get('product_id')
+        county_id = self.request.query_params.get('county_id')
+        quantity_available = self.request.query_params.get('quantity_available')
+
+        if product_id:
+            queryset = queryset.filter(product_id=product_id)
+        if county_id:
+            queryset = queryset.filter(location_county_id=county_id)
+        if quantity_available:
+            queryset = queryset.filter(quantity_available__gt=quantity_available)
+
+        return queryset
