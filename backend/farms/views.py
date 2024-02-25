@@ -5,9 +5,11 @@ from .serializers import FarmSerializer
 class FarmDetailAPIView(generics.RetrieveAPIView):
     queryset = Farm.objects.all()
     serializer_class = FarmSerializer
+    permission_classes = []
 
 class FarmerFarmsAPIView(generics.ListAPIView):
     serializer_class = FarmSerializer
+    permission_classes = []
 
     def get_queryset(self):
         farmer_id = self.kwargs.get('farmer_id')
@@ -16,11 +18,14 @@ class FarmerFarmsAPIView(generics.ListAPIView):
 class FarmUpdateAPIView(generics.UpdateAPIView):
     queryset = Farm.objects.all()
     serializer_class = FarmSerializer
+    permission_classes = []
 
 class FarmDeleteAPIView(generics.DestroyAPIView):
     queryset = Farm.objects.all()
     serializer_class = FarmSerializer
+    permission_classes = []
 
 class FarmListAPIView(generics.ListAPIView):
     queryset = Farm.objects.all()
     serializer_class = FarmSerializer
+    permission_classes = []
