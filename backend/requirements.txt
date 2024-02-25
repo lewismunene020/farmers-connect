@@ -15,3 +15,5 @@ dj_database_url
 PyMySQL==1.0.2 
 
 psycopg2-binary
+
+Pillow
