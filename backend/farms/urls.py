@@ -5,6 +5,7 @@ from .views import (
     FarmUpdateAPIView,
     FarmDeleteAPIView,
     FarmListAPIView,
+    FarmCreateAPIView,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('api/farm/<int:pk>/update/', FarmUpdateAPIView.as_view(), name='farm-update'),
     path('api/farm/<int:pk>/delete/', FarmDeleteAPIView.as_view(), name='farm-delete'),
     path('api/farms/', FarmListAPIView.as_view(), name='farm-list'),
+    path('api/farm/create/', FarmCreateAPIView.as_view(), name='farm-create'),
 ]

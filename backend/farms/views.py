@@ -2,6 +2,14 @@ from rest_framework import generics
 from .models import Farm
 from .serializers import FarmSerializer
 
+class FarmCreateAPIView(generics.CreateAPIView):
+    queryset = Farm.objects.all()
+    serializer_class = FarmSerializer
+    permission_classes = []
+
+    def perform_create(self, serializer):
+        serializer.save(farmer=self.request.user)
+
 class FarmDetailAPIView(generics.RetrieveAPIView):
     queryset = Farm.objects.all()
     serializer_class = FarmSerializer
