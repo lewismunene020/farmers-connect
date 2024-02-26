@@ -39,7 +39,7 @@ function HotProducts() {
           </div>
         </div>
       </div>
-      <div id="content" class="container">
+      <div id="content" className="container">
         <div className="row">
           {/* if the  products array is empty show no products */}
 
