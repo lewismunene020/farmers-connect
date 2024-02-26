@@ -53,7 +53,7 @@ const AddFarm = () => {
         formDataWithImages.append('location_subcounty_id', formData.location_subcounty_id);
         formDataWithImages.append('quantity_available', formData.quantity_available);
         formDataWithImages.append('price_per_unit', formData.price_per_unit);
-        
+
         FarmService.createFarm(formDataWithImages).then(() => {
             console.log('Farm created successfully');
         }).catch(error => {
@@ -75,13 +75,13 @@ const AddFarm = () => {
                     </ul>
                 </div>
                 <div className="col-md-3">
-                     <SideBar />
+                    <SideBar />
                 </div>
                 <div className="col-md-9">
                     <div className="box">
                         <h3>Add Farm</h3>
                         <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                            <div className="form-group">
                                 <label htmlFor="category_id">Category</label>
                                 <select
                                     className="form-control"
@@ -89,6 +89,7 @@ const AddFarm = () => {
                                     name="category_id"
                                     value={formData.category_id}
                                     onChange={(e) => handleCategoryChange(e.target.value)}
+                                    required
                                 >
                                     <option value="">Select Category</option>
                                     {categories.map(category => (
@@ -106,6 +107,7 @@ const AddFarm = () => {
                                     name="product_id"
                                     value={formData.product_id}
                                     onChange={handleChange}
+                                    required
                                 >
                                     <option value="">Select Product</option>
                                     {products.map(product => (
@@ -124,6 +126,7 @@ const AddFarm = () => {
                                     name="title"
                                     value={formData.title}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -135,6 +138,7 @@ const AddFarm = () => {
                                     name="product_image1"
                                     accept="image/*"
                                     onChange={handleImageChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -146,6 +150,7 @@ const AddFarm = () => {
                                     name="product_image2"
                                     accept="image/*"
                                     onChange={handleImageChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -155,7 +160,11 @@ const AddFarm = () => {
                                     id="location_county_id"
                                     name="location_county_id"
                                     value={formData.location_county_id}
-                                    onChange={(e) => handleCountyChange(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, location_county_id: e.target.value }); // Update the location_county_id in formData
+                                        handleCountyChange(e.target.value); // Fetch sub-counties based on the selected county
+                                    }}
+                                    required
                                 >
                                     <option value="">Select County</option>
                                     {counties.map(county => (
@@ -173,6 +182,7 @@ const AddFarm = () => {
                                     name="location_subcounty_id"
                                     value={formData.location_subcounty_id}
                                     onChange={handleChange}
+                                    required
                                 >
                                     <option value="">Select Sub-County</option>
                                     {subCounties.map(subCounty => (
@@ -191,6 +201,7 @@ const AddFarm = () => {
                                     name="quantity_available"
                                     value={formData.quantity_available}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -202,6 +213,7 @@ const AddFarm = () => {
                                     name="price_per_unit"
                                     value={formData.price_per_unit}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
