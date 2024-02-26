@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
@@ -17,6 +18,30 @@ const App = () => {
         <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
         <Route path="/farmer/addfarm" element={<AddFarm />} />
       </Routes>
+      <AuthContextProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/customer/dashboard" element={<CustomerDashboard />} />
+          <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
+        </Routes>
+        <Footer />
+      </AuthContextProvider>
     </BrowserRouter>
   );
 };

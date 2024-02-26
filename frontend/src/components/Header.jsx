@@ -1,29 +1,43 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/Auth";
 
 const Header = () => {
+  const { user } = useAuth();
+
   return (
     <>
       <div id="top" className="top">
         <div className="container">
           <div className="col-md-6 offer">
-            <a href="#" className="btn btn-success btn-sm">
-              Welcome: Guest
-            </a>
-            <a href="checkout.php"> Items In Your Cart | Total Price: </a>
+            {user ? (
+              <Link to="/dashboard" className="btn btn-success btn-sm">
+                Welcome{user.username}
+              </Link>
+            ) : (
+              <Link to="/dashboard" className="btn btn-success btn-sm">
+                Welcome: Guest
+              </Link>
+            )}
+            <Link to="/cart"> Items In Your Cart | Total Price: </Link>
           </div>
           <div className="col-md-6">
             <ul className="menu">
               <li>
-                <a href="customer_register.php">Register</a>
+                <Link to="/register">Register</Link>
               </li>
               <li>
-                <a href="checkout.php">My Account</a>
+                {user && user.is_farmer ? (
+                  <Link to="/farmer/dashboard">My Account</Link>
+                ) : (
+                  <Link to="/customer/dashboard">My Account</Link>
+                )}
               </li>
               <li>
-                <a href="cart.php">Go To Cart</a>
+                <Link to="/cart">Go To Cart</Link>
               </li>
               <li>
-                <a href="checkout.php">Login</a>
+                <Link to="/login">Login</Link>
               </li>
             </ul>
           </div>
@@ -33,7 +47,7 @@ const Header = () => {
       <div id="navbar" className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
-            <a href="index.php" className="navbar-brand home">
+            <a href="/" className="navbar-brand home">
               {/* <img src="images/logo.jpeg" alt="eCom-Store Logo" className="hidden-xs">
                 <img src="images/logo.jpeg" alt="eCom-Store Logo Mobile" className="visible-xs"> */}
             </a>
@@ -58,26 +72,30 @@ const Header = () => {
             <div className="padding-nav">
               <ul className="nav navbar-nav left">
                 <li>
-                  <a href="/">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <a href="/shop">Shop</a>
+                  <Link to="/shop">Shop</Link>
                 </li>
                 <li>
-                  <a href="/account">My Account</a>
+                  {user && user.is_farmer ? (
+                    <Link to="/farmer/dashboard">My Account</Link>
+                  ) : (
+                    <Link to="/customer/dashboard">My Account</Link>
+                  )}
                 </li>
                 <li>
-                  <a href="/cart">Shopping Cart</a>
+                  <Link to="/cart">Shopping Cart</Link>
                 </li>
                 <li>
-                  <a href="/contact">Contact Us</a>
+                  <Link to="/contact">Contact Us</Link>
                 </li>
               </ul>
             </div>
-            <a href="/cart" className="btn navbar-btn btn-primary right">
+            <Link to="/cart" className="btn navbar-btn btn-primary right">
               <i className="fa fa-shopping-cart"></i>
               <span>Items In Your Cart</span>
-            </a>
+            </Link>
             <div className="navbar-collapse collapse right">
               <button
                 className="btn btn-primary navbar-btn"
