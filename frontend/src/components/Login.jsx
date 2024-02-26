@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { notify } from "../hooks/Notification";
 import { useAuth } from "../hooks/Auth";
 
@@ -11,6 +11,8 @@ function Login() {
   const passwordRef = useRef(null);
 
   const { user, login } = useAuth();
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -28,6 +30,7 @@ function Login() {
     if (data) {
       console.log(data);
       notify("success", "Login successful");
+      navigate("/dashboard");
     }
     setLoading(false);
   };
