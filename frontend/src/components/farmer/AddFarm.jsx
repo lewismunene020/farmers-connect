@@ -1,3 +1,5 @@
+// AddFarm.js
+
 import React, { useState, useEffect } from 'react';
 import FarmService from '../../services/FarmService';
 import SideBar from './SideBar';
@@ -51,21 +53,13 @@ const AddFarm = () => {
         formDataWithImages.append('location_subcounty_id', formData.location_subcounty_id);
         formDataWithImages.append('quantity_available', formData.quantity_available);
         formDataWithImages.append('price_per_unit', formData.price_per_unit);
-    
-        // Set headers
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        };
-    
-        FarmService.createFarm(formDataWithImages, config).then(() => {
+        
+        FarmService.createFarm(formDataWithImages).then(() => {
             console.log('Farm created successfully');
         }).catch(error => {
             console.error('Error creating farm:', error);
         });
     };
-    
 
     return (
         <div id="content">
@@ -81,13 +75,136 @@ const AddFarm = () => {
                     </ul>
                 </div>
                 <div className="col-md-3">
-                    <SideBar />
+                     <SideBar />
                 </div>
                 <div className="col-md-9">
                     <div className="box">
-                        <h1>Add Farm</h1>
+                        <h3>Add Farm</h3>
                         <form onSubmit={handleSubmit}>
-                            {/* Form fields go here */}
+                        <div className="form-group">
+                                <label htmlFor="category_id">Category</label>
+                                <select
+                                    className="form-control"
+                                    id="category_id"
+                                    name="category_id"
+                                    value={formData.category_id}
+                                    onChange={(e) => handleCategoryChange(e.target.value)}
+                                >
+                                    <option value="">Select Category</option>
+                                    {categories.map(category => (
+                                        <option key={category.category_id} value={category.category_id}>
+                                            {category.category_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="product_id">Product</label>
+                                <select
+                                    className="form-control"
+                                    id="product_id"
+                                    name="product_id"
+                                    value={formData.product_id}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Select Product</option>
+                                    {products.map(product => (
+                                        <option key={product.product_id} value={product.product_id}>
+                                            {product.product_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="title">Title</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="title"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="product_image1">Product Image 1</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="product_image1"
+                                    name="product_image1"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="product_image2">Product Image 2</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="product_image2"
+                                    name="product_image2"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="location_county_id">County</label>
+                                <select
+                                    className="form-control"
+                                    id="location_county_id"
+                                    name="location_county_id"
+                                    value={formData.location_county_id}
+                                    onChange={(e) => handleCountyChange(e.target.value)}
+                                >
+                                    <option value="">Select County</option>
+                                    {counties.map(county => (
+                                        <option key={county.county_id} value={county.county_id}>
+                                            {county.county_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="location_subcounty_id">Sub-County</label>
+                                <select
+                                    className="form-control"
+                                    id="location_subcounty_id"
+                                    name="location_subcounty_id"
+                                    value={formData.location_subcounty_id}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Select Sub-County</option>
+                                    {subCounties.map(subCounty => (
+                                        <option key={subCounty.subcounty_id} value={subCounty.subcounty_id}>
+                                            {subCounty.subcounty_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="quantity_available">Quantity Available</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="quantity_available"
+                                    name="quantity_available"
+                                    value={formData.quantity_available}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="price_per_unit">Price per Unit</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="price_per_unit"
+                                    name="price_per_unit"
+                                    value={formData.price_per_unit}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>
