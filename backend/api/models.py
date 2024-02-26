@@ -6,6 +6,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_name
+    def products(self):
+        return Product.objects.filter(category=self)
 
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
