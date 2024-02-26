@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import CategoryList, ProductList, ProductsByCategory, CountyList, SubCountyList, SubCountyByCounty
-
 urlpatterns = [
     path('api/categories/', CategoryList.as_view(), name='category-list'),
     path('api/products/', ProductList.as_view(), name='product-list'),

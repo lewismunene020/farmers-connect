@@ -19,9 +19,14 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ['product_id', 'category', 'product_name', 'unit']
 
 class CountySerializer(serializers.ModelSerializer):
+    subcounties = serializers.SerializerMethodField("get_subcounties")
     class Meta:
         model = County
-        fields = ['county_id', 'county_name']
+        fields = ['county_id', 'county_name' ,"subcounties"]
+    
+    def get_subcounties(self, obj):
+        subcounties = SubCounty.objects.filter(county=obj)
+        return SubCountySerializer(subcounties, many=True).data
 
 class SubCountySerializer(serializers.ModelSerializer):
     class Meta:
