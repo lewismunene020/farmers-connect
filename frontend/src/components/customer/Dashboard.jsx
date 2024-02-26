@@ -1,6 +1,6 @@
-import React from 'react';
-import SideBar from './SideBar'; // Assuming SideBar.js is in the same directory
-import Orders from './Orders'; // Assuming Orders.js is in the same directory
+import React from "react";
+import SideBar from "./SideBar"; // Assuming SideBar.js is in the same directory
+import Orders from "./Orders"; // Assuming Orders.js is in the same directory
 
 class Dashboard extends React.Component {
   render() {
@@ -10,11 +10,9 @@ class Dashboard extends React.Component {
           <div className="col-md-12">
             <ul className="breadcrumb">
               <li>
-                <a href="../index.php">Home</a>
+                <a href="..//">Home</a>
               </li>
-              <li>
-                My Orders
-              </li>
+              <li>My Orders</li>
             </ul>
           </div>
           <div className="col-md-3">

@@ -1,29 +1,39 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/Auth";
 
 const Header = () => {
+  const { user } = useAuth();
+
   return (
     <>
       <div id="top" className="top">
         <div className="container">
           <div className="col-md-6 offer">
-            <a href="#" className="btn btn-success btn-sm">
-              Welcome: Guest
-            </a>
-            <a href="checkout.php"> Items In Your Cart | Total Price: </a>
+            {user ? (
+              <a href="#" className="btn btn-success btn-sm">
+                Welcome <Link to="/dashboard">{user.username}</Link>
+              </a>
+            ) : (
+              <a href="#" className="btn btn-success btn-sm">
+                Welcome: Guest
+              </a>
+            )}
+            <Link to="/cart"> Items In Your Cart | Total Price: </Link>
           </div>
           <div className="col-md-6">
             <ul className="menu">
               <li>
-                <a href="customer_register.php">Register</a>
+                <Link to="/register">Register</Link>
               </li>
               <li>
-                <a href="checkout.php">My Account</a>
+                <Link to="/dashboard">My Account</Link>
               </li>
               <li>
-                <a href="cart.php">Go To Cart</a>
+                <Link to="/cart">Go To Cart</Link>
               </li>
               <li>
-                <a href="checkout.php">Login</a>
+                <Link to="/login">Login</Link>
               </li>
             </ul>
           </div>
@@ -33,7 +43,7 @@ const Header = () => {
       <div id="navbar" className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
-            <a href="index.php" className="navbar-brand home">
+            <a href="/" className="navbar-brand home">
               {/* <img src="images/logo.jpeg" alt="eCom-Store Logo" className="hidden-xs">
                 <img src="images/logo.jpeg" alt="eCom-Store Logo Mobile" className="visible-xs"> */}
             </a>
