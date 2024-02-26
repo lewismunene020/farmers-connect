@@ -37,7 +37,7 @@ const Contact = () => {
           <div className="col-md-12">
             <ul className="breadcrumb">
               <li>
-                <a href="index.php">Home</a>
+                <a href="/">Home</a>
               </li>
               <li>Contact Us</li>
             </ul>

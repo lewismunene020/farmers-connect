@@ -4,6 +4,7 @@ from . import  views
 
 urlpatterns = [
     path('login/', views.LoginView.as_view({"post" : "post"})  ),
+    path('register/', views.SignUpView.as_view({"post" : "post"})  ),
 
     path("contact/" ,views.ContactMessageView.as_view({"post" : "create"})),
     path("contact/list/" ,views.ContactMessageView.as_view({"post" : "list"})),

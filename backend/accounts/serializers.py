@@ -4,16 +4,18 @@ from rest_framework.validators import ValidationError
 
 from .models import User 
 from django.db.models import  Q
+from accounts import  logger
 
 class SignUpSerializer(serializers.ModelSerializer):
     # email = serializers.CharField(max_length=800)
     # username = serializers.CharField(max_length=45)
     password = serializers.CharField(min_length=1, write_only=True)
+    is_farmer = serializers.BooleanField(default=False)
 
 
     class Meta:
         model = User
-        fields = ["email", "username", "password"]
+        fields = ["email", "first_name", "last_name","is_farmer" , "password"]
         
 
     def validate(self, attrs):
@@ -22,10 +24,10 @@ class SignUpSerializer(serializers.ModelSerializer):
        
         return super().validate(attrs) 
     
-    def validate_username(self , username):
-        if User.objects.filter(username=username).exists():
-            raise ValidationError("Username has already been used")
-        return username
+    # def validate_username(self , username):
+    #     if User.objects.filter(username=username).exists():
+    #         raise ValidationError("Username has already been used")
+    #     return username
 
     
     def create(self, validated_data):
