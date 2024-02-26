@@ -11,6 +11,7 @@ import Register from "./components/Registration";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./hooks/Auth";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/customer/dashboard" element={<CustomerDashboard />} />
           <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
         </Routes>
+        <Footer />
       </AuthContextProvider>
     </BrowserRouter>
   );

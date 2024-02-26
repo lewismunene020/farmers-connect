@@ -27,7 +27,11 @@ const Header = () => {
                 <Link to="/register">Register</Link>
               </li>
               <li>
-                <Link to="/dashboard">My Account</Link>
+                {user && user.is_farmer ? (
+                  <Link to="/farmer/dashboard">My Account</Link>
+                ) : (
+                  <Link to="/customer/dashboard">My Account</Link>
+                )}
               </li>
               <li>
                 <Link to="/cart">Go To Cart</Link>
@@ -68,26 +72,30 @@ const Header = () => {
             <div className="padding-nav">
               <ul className="nav navbar-nav left">
                 <li>
-                  <a href="/">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <a href="/shop">Shop</a>
+                  <Link to="/shop">Shop</Link>
                 </li>
                 <li>
-                  <a href="/account">My Account</a>
+                  {user && user.is_farmer ? (
+                    <Link to="/farmer/dashboard">My Account</Link>
+                  ) : (
+                    <Link to="/customer/dashboard">My Account</Link>
+                  )}
                 </li>
                 <li>
-                  <a href="/cart">Shopping Cart</a>
+                  <Link to="/cart">Shopping Cart</Link>
                 </li>
                 <li>
-                  <a href="/contact">Contact Us</a>
+                  <Link to="/contact">Contact Us</Link>
                 </li>
               </ul>
             </div>
-            <a href="/cart" className="btn navbar-btn btn-primary right">
+            <Link to="/cart" className="btn navbar-btn btn-primary right">
               <i className="fa fa-shopping-cart"></i>
               <span>Items In Your Cart</span>
-            </a>
+            </Link>
             <div className="navbar-collapse collapse right">
               <button
                 className="btn btn-primary navbar-btn"
