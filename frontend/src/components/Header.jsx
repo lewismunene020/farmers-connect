@@ -11,13 +11,13 @@ const Header = () => {
         <div className="container">
           <div className="col-md-6 offer">
             {user ? (
-              <a href="#" className="btn btn-success btn-sm">
-                Welcome <Link to="/dashboard">{user.username}</Link>
-              </a>
+              <Link to="/dashboard" className="btn btn-success btn-sm">
+                Welcome{user.username}
+              </Link>
             ) : (
-              <a href="#" className="btn btn-success btn-sm">
+              <Link to="/dashboard" className="btn btn-success btn-sm">
                 Welcome: Guest
-              </a>
+              </Link>
             )}
             <Link to="/cart"> Items In Your Cart | Total Price: </Link>
           </div>
