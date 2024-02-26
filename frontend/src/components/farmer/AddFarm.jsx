@@ -54,7 +54,14 @@ const AddFarm = () => {
         formDataWithImages.append('quantity_available', formData.quantity_available);
         formDataWithImages.append('price_per_unit', formData.price_per_unit);
 
-        FarmService.createFarm(formDataWithImages).then(() => {
+        // Set headers
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+
+        FarmService.createFarm(formDataWithImages, config).then(() => {
             console.log('Farm created successfully');
         }).catch(error => {
             console.error('Error creating farm:', error);

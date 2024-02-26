@@ -1,11 +1,12 @@
 from rest_framework import generics
 from .models import Farm
 from .serializers import FarmSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class FarmCreateAPIView(generics.CreateAPIView):
     queryset = Farm.objects.all()
     serializer_class = FarmSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(farmer=self.request.user)
