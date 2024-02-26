@@ -5,17 +5,19 @@ import Contact from "./components/Contact";
 import Header from "./components/Header";
 import CustomerDashboard from "./components/customer/Dashboard";
 import FarmerDashboard from "./components/farmer/Dashboard";
-import Login from "./components/Login";
-import Register from "./components/Registration";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AuthContextProvider } from "./hooks/Auth";
-import Footer from "./components/Footer";
+import AddFarm from "./components/farmer/AddFarm";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/customer/dashboard" element={<CustomerDashboard />} />
+        <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
+        <Route path="/farmer/addfarm" element={<AddFarm />} />
+      </Routes>
       <AuthContextProvider>
         <ToastContainer
           position="top-right"

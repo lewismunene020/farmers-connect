@@ -39,7 +39,7 @@ class SideBar extends React.Component {
                 <i className="fa fa-building"></i> Farms
               </a>
               <ul className={this.state.activeMenu === 'farms' ? 'nav-pills nav-stacked nav' : 'collapse'}>
-                <li><a href="#">- Add Farm</a></li>
+                <li><a href="/farmer/addfarm">- Add Farm</a></li>
                 <li><a href="#">- My Farms</a></li>
               </ul>
             </li>
