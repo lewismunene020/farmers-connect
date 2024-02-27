@@ -40,7 +40,7 @@ class SideBar extends React.Component {
               </a>
               <ul className={this.state.activeMenu === 'farms' ? 'nav-pills nav-stacked nav' : 'collapse'}>
                 <li><a href="/farmer/addfarm">- Add Farm</a></li>
-                <li><a href="#">- My Farms</a></li>
+                <li><a href="/farmer/myfarms">- My Farms</a></li>
               </ul>
             </li>
             <li className={this.state.activeMenu === 'orders' ? 'active' : ''}>
