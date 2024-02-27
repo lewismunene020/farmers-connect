@@ -12,14 +12,14 @@ const Header = () => {
           <div className="col-md-6 offer">
             {user ? (
               <Link to="/dashboard" className="btn btn-success btn-sm">
-                Welcome{user.username}
+                Welcome {user.username}
               </Link>
             ) : (
               <Link to="/dashboard" className="btn btn-success btn-sm">
                 Welcome: Guest
               </Link>
             )}
-            <Link to="/cart"> Items In Your Cart | Total Price: </Link>
+            
           </div>
           <div className="col-md-6">
             <ul className="menu">
@@ -33,9 +33,7 @@ const Header = () => {
                   <Link to="/customer/dashboard">My Account</Link>
                 )}
               </li>
-              <li>
-                <Link to="/cart">Go To Cart</Link>
-              </li>
+              
               <li>
                 <Link to="/login">Login</Link>
               </li>
@@ -75,7 +73,7 @@ const Header = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/shop">Shop</Link>
+                  <Link to="/farms">Farms</Link>
                 </li>
                 <li>
                   {user && user.is_farmer ? (
@@ -84,17 +82,14 @@ const Header = () => {
                     <Link to="/customer/dashboard">My Account</Link>
                   )}
                 </li>
-                <li>
-                  <Link to="/cart">Shopping Cart</Link>
-                </li>
+                
                 <li>
                   <Link to="/contact">Contact Us</Link>
                 </li>
               </ul>
             </div>
-            <Link to="/cart" className="btn navbar-btn btn-primary right">
-              <i className="fa fa-shopping-cart"></i>
-              <span>Items In Your Cart</span>
+            <Link to="/customer/createorder" className="btn navbar-btn btn-primary right">
+              <span>Create Order</span>
             </Link>
             <div className="navbar-collapse collapse right">
               <button
