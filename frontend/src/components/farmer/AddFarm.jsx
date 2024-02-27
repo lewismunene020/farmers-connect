@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import FarmService from '../../services/FarmService';
 import SideBar from './SideBar';
+import { notify } from "../../hooks/Notification";
 
 const AddFarm = () => {
     const [categories, setCategories] = useState([]);
@@ -19,6 +20,8 @@ const AddFarm = () => {
         quantity_available: '',
         price_per_unit: '',
     });
+
+    const [productUnit, setProductUnit] = useState('');
 
     useEffect(() => {
         FarmService.getCategories().then(res => setCategories(res.data));
@@ -42,6 +45,12 @@ const AddFarm = () => {
         setFormData({ ...formData, [e.target.name]: file });
     };
 
+    const handleProductChange = (productId) => {
+        const selectedProduct = products.find(product => product.product_id == productId);
+        setFormData({ ...formData, product_id: productId });
+        setProductUnit(selectedProduct.unit);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const formDataWithImages = new FormData();
@@ -63,8 +72,10 @@ const AddFarm = () => {
 
         FarmService.createFarm(formDataWithImages, config).then(() => {
             console.log('Farm created successfully');
+            notify("success", "Farm created successfully");
         }).catch(error => {
             console.error('Error creating farm:', error);
+            notify("error", "'Error creating farm");
         });
     };
 
@@ -89,7 +100,7 @@ const AddFarm = () => {
                         <h3>Add Farm</h3>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label htmlFor="category_id">Category</label>
+                                <label htmlFor="category_id">What do you produce?</label>
                                 <select
                                     className="form-control"
                                     id="category_id"
@@ -113,7 +124,10 @@ const AddFarm = () => {
                                     id="product_id"
                                     name="product_id"
                                     value={formData.product_id}
-                                    onChange={handleChange}
+                                    onChange={(e) => {
+                                        handleChange(e);
+                                        handleProductChange(e.target.value);
+                                    }}
                                     required
                                 >
                                     <option value="">Select Product</option>
@@ -125,7 +139,7 @@ const AddFarm = () => {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="title">Title</label>
+                                <label htmlFor="title">Title (e.g. Kamau's Red Onions)</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -200,7 +214,7 @@ const AddFarm = () => {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="quantity_available">Quantity Available</label>
+                                <label htmlFor="quantity_available">Quantity Available ({productUnit}s)</label>
                                 <input
                                     type="number"
                                     className="form-control"
@@ -212,7 +226,7 @@ const AddFarm = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="price_per_unit">Price per Unit</label>
+                                <label htmlFor="price_per_unit">Price per {productUnit}</label>
                                 <input
                                     type="number"
                                     className="form-control"
