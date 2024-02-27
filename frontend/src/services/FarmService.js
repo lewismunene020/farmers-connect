@@ -21,6 +21,7 @@ const FarmService = {
     getCounties: () => api.get('counties/'),
     getSubCountiesByCounty: (countyId) => api.get(`subcounties/county/${countyId}`),
     createFarm: (farmData) => api.post('farm/create/', farmData),
+    getFarmsByFarmerId: (farmerId) => api.get(`farms/farmer/${farmerId}/`),
 };
 
 export default FarmService;

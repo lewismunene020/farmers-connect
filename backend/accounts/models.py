@@ -34,6 +34,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    id = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True , null=True , blank=True)
     profile_picture = models.ImageField(upload_to="profile_pictures", null=True, blank=True)
     verification_code = models.CharField(max_length=255, null=True, blank=True)
