@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
+import Farms from "./components/Farms";
 import Contact from "./components/Contact";
 import Header from "./components/Header";
 import CustomerDashboard from "./components/customer/Dashboard";
@@ -33,6 +34,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/farms" element={<Farms />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
