@@ -2,12 +2,25 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8000/api/';
 
+const api = axios.create({
+    baseURL: BASE_URL,
+});
+
+// Set the Authorization header for all requests
+api.interceptors.request.use(config => {
+    const token = localStorage.getItem("user.token");
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+});
+
 const FarmService = {
-    getCategories: () => axios.get(`${BASE_URL}categories/`),
-    getProductsByCategory: (categoryId) => axios.get(`${BASE_URL}products/category/${categoryId}`),
-    getCounties: () => axios.get(`${BASE_URL}counties/`),
-    getSubCountiesByCounty: (countyId) => axios.get(`${BASE_URL}subcounties/county/${countyId}`),
-    createFarm: (farmData, config) => axios.post(`${BASE_URL}farm/create/`, farmData, config),
+    getCategories: () => api.get('categories/'),
+    getProductsByCategory: (categoryId) => api.get(`products/category/${categoryId}`),
+    getCounties: () => api.get('counties/'),
+    getSubCountiesByCounty: (countyId) => api.get(`subcounties/county/${countyId}`),
+    createFarm: (farmData) => api.post('farm/create/', farmData),
 };
 
 export default FarmService;
