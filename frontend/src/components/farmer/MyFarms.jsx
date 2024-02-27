@@ -12,8 +12,8 @@ const MyFarms = () => {
       try {
         if (user) {
             // console.log(user)
-        //   const userId = user.id;
-            const  userId = 1;
+          const userId = user.id;
+    
           const response = await FarmService.getFarmsByFarmerId(userId);
           setFarms(response.data);
         }

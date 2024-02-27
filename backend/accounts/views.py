@@ -71,6 +71,7 @@ class LoginView(viewsets.ViewSet):
                 "is_farmer" : user.is_farmer,
                 "is_active": user.is_active,
                 "email": user.email,
+                "id": user.id,
                 "profile": {
                     "image": user.get_profile_picture(request),
                 }
