@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+
 const Contact = () => {
   let url = "http://localhost:5000/contact/";
 
@@ -37,7 +38,7 @@ const Contact = () => {
           <div className="col-md-12">
             <ul className="breadcrumb">
               <li>
-                <a href="index.php">Home</a>
+                <a href="/">Home</a>
               </li>
               <li>Contact Us</li>
             </ul>
