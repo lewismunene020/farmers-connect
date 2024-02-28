@@ -77,6 +77,7 @@ export function AuthContextProvider({ children }) {
       if (data.token) {
         setToken(data.token);
         setUser({
+          id: data.id,
           email: data.email,
           username: data.username,
           profile: data.profile,

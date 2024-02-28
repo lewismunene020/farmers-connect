@@ -26,3 +26,10 @@ class FarmSerializer(serializers.ModelSerializer):
         model = Farm
         fields = '__all__'
         read_only_fields = ['farmer']
+
+class FarmCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Farm
+        fields = '__all__'
+        read_only_fields = ['farmer']
