@@ -16,6 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./ProtectedRouter";
+import "./assets/product-card.css";
 
 const AppRouter = () => {
   return (
@@ -77,7 +78,7 @@ const AppRouter = () => {
         />
 
         <Route
-          path="/products/details"
+          path="/product/details"
           element={
             <ProtectedRoute permit={"customer"}>
               <Details />
