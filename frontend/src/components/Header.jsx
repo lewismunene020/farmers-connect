@@ -16,7 +16,7 @@ const Header = () => {
               </Link>
             ) : (
               <Link to="/dashboard" className="btn btn-success btn-sm">
-                Karibu: Guest or Farmer
+                Karibu: Farmer
               </Link>
             )}
             
