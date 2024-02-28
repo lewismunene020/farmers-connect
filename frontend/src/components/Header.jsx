@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/Auth";
 
+
 const Header = () => {
   const { user } = useAuth();
 
@@ -9,6 +10,8 @@ const Header = () => {
     <>
       <div id="top" className="top">
         <div className="container">
+          <img src= "/logo.jpg" id = "logo_image" alt="eCom-Store Logo"></img>
+          <div id="web-title">farmers connect</div>
           <div className="col-md-6 offer">
             {user ? (
               <Link to="/dashboard" className="btn btn-success btn-sm">
@@ -36,9 +39,6 @@ const Header = () => {
               
               <li>
                 <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/david">Login</Link>
               </li>
             </ul>
           </div>
