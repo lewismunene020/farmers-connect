@@ -5,6 +5,7 @@ import Farms from "./components/Farms";
 import Contact from "./components/Contact";
 import Header from "./components/Header";
 import CustomerDashboard from "./components/customer/Dashboard";
+import CreateOrder from "./components/customer/CreateOrder";
 import FarmerDashboard from "./components/farmer/Dashboard";
 import AddFarm from "./components/farmer/AddFarm";
 import MyFarms from "./components/farmer/MyFarms";
@@ -16,7 +17,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./ProtectedRouter";
+
 import "./assets/product-card.css";
+
 
 const AppRouter = () => {
   return (
@@ -46,6 +49,15 @@ const AppRouter = () => {
           element={
             <ProtectedRoute permit={"customer"}>
               <CustomerDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/customer/createorder"
+          element={
+            <ProtectedRoute permit={"customer"}>
+              <CreateOrder />
             </ProtectedRoute>
           }
         />
