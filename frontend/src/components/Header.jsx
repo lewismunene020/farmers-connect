@@ -16,7 +16,7 @@ const Header = () => {
               </Link>
             ) : (
               <Link to="/dashboard" className="btn btn-success btn-sm">
-                Welcome: Guest
+                Karibu: Guest
               </Link>
             )}
             
@@ -36,6 +36,9 @@ const Header = () => {
               
               <li>
                 <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/david">Login</Link>
               </li>
             </ul>
           </div>
