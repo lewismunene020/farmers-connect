@@ -11,7 +11,7 @@ const MyFarms = () => {
     const fetchFarms = async () => {
       try {
         if (user) {
-            // console.log(user)
+            console.log(user)
           const userId = user.id;
     
           const response = await FarmService.getFarmsByFarmerId(userId);
