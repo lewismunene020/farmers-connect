@@ -10,6 +10,7 @@ import AddFarm from "./components/farmer/AddFarm";
 import MyFarms from "./components/farmer/MyFarms";
 import Login from "./components/Login";
 import Register from "./components/Registration";
+import Details from "./components/products/Details";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -42,6 +43,9 @@ const App = () => {
           <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
           <Route path="/farmer/addfarm" element={<AddFarm />} />
           <Route path="/farmer/myfarms" element={<MyFarms />} />
+          <Route path="/product/details" element={<Details />} />
+
+  
         </Routes>
         <Footer />
       </AuthContextProvider>
