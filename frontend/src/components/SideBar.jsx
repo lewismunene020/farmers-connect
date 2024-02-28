@@ -1,7 +1,8 @@
+// SideBar.js
 import React, { useState, useEffect } from 'react';
 import PublicFarmService from '../services/PublicFarmService';
 
-const SideBar = () => {
+const SideBar = ({ onProductClick }) => {
   const [categories, setCategories] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState({});
   const [activeMenu, setActiveMenu] = useState('');
@@ -36,6 +37,11 @@ const SideBar = () => {
     fetchProductsByCategory(categoryId);
   };
 
+  const handleProductClick = (productId) => {
+    console.log("Selected Product ID:", productId); // Log the selected product ID
+    onProductClick(productId);
+  };
+
   return (
     <div className="panel panel-default sidebar-menu">
       <div className="panel-body">
@@ -49,7 +55,9 @@ const SideBar = () => {
                 <ul className="nav-pills nav-stacked nav">
                   {productsByCategory[category.category_id].map(product => (
                     <li key={product.product_id}>
-                      <a href="#">{product.product_name}</a>
+                      <a href="#" onClick={() => handleProductClick(product.product_id)}>
+                        {product.product_name}
+                      </a>
                     </li>
                   ))}
                 </ul>
