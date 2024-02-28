@@ -58,7 +58,18 @@ class CreateOrder extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // Logic for submitting the form goes here
+    const { formData } = this.state;
+
+    // Call our service method to submit the form data
+    OrderService.createOrder(formData)
+      .then((res) => {
+        console.log("Order created successfully:", res.data);
+        notify("success", "Order created successfully");
+      })
+      .catch((error) => {
+        console.error("Error creating order:", error);
+        notify("error", "'Error creating order");
+      });
   };
 
   render() {
