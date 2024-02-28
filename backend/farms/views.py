@@ -1,11 +1,11 @@
 from rest_framework import generics
 from .models import Farm
-from .serializers import FarmSerializer
+from .serializers import FarmSerializer, FarmCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 
 class FarmCreateAPIView(generics.CreateAPIView):
     queryset = Farm.objects.all()
-    serializer_class = FarmSerializer
+    serializer_class = FarmCreateSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
