@@ -30,7 +30,11 @@ function Login() {
     if (data) {
       console.log(data);
       notify("success", "Login successful");
-      navigate("/dashboard");
+      if (data.is_farmer) {
+        navigate("/farmer/dashboard");
+      } else {
+        navigate("/customer/dashboard");
+      }
     }
     setLoading(false);
   };

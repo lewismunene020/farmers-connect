@@ -14,6 +14,7 @@ import Register from "./components/Registration";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./ProtectedRouter";
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -36,10 +37,42 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/customer/dashboard" element={<CustomerDashboard />} />
-        <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
-        <Route path="/farmer/addfarm" element={<AddFarm />} />
-        <Route path="/farmer/myfarms" element={<MyFarms />} />
+
+        <Route
+          path="/customer/dashboard"
+          element={
+            <ProtectedRoute permit={"customer"}>
+              <CustomerDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/farmer/dashboard"
+          element={
+            <ProtectedRoute permit={"farmer"}>
+              <FarmerDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/farmer/addfarm"
+          element={
+            <ProtectedRoute permit={"farmer"}>
+              <AddFarm />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/farmer/myfarms"
+          element={
+            <ProtectedRoute permit={"farmer"}>
+              <MyFarms />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
