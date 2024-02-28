@@ -19,9 +19,9 @@ class Dashboard extends React.Component {
             <SideBar />
           </div>
           <div className="col-md-9">
-            <div className="box">
+            {/* <div className="box">
               <Orders />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

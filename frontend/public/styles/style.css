@@ -12,8 +12,9 @@ body{
 /* Top Styles */
 
 #top{
-    background: #555555;
+    background: #297737;
     padding: 10px 0;
+    height: 100px;
 }
 #top .offer{
     color: #ffffff;
@@ -110,6 +111,28 @@ body{
 }
 #slider{
     margin-bottom: 40px;
+}
+
+/*logo image styles*/
+
+#logo_image {
+    border-radius: 47px;
+    position: absolute;
+    left: 10px;
+    height: 80px;
+}    
+
+#web-title {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   
+    background-color:transparent;
+    font-size: 35px;
+    color: #ddb680;
+    width:300px;
+    position:relative;
+    left: 70px;
+    top: 15px;
+  
 }
 
 /* advantages Styles */

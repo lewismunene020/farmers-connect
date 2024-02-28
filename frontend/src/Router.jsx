@@ -11,11 +11,15 @@ import AddFarm from "./components/farmer/AddFarm";
 import MyFarms from "./components/farmer/MyFarms";
 import Login from "./components/Login";
 import Register from "./components/Registration";
+import Details from "./components/products/Details";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./ProtectedRouter";
+
+import "./assets/product-card.css";
+
 
 const AppRouter = () => {
   return (
@@ -81,6 +85,15 @@ const AppRouter = () => {
           element={
             <ProtectedRoute permit={"farmer"}>
               <MyFarms />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/product/details"
+          element={
+            <ProtectedRoute permit={"customer"}>
+              <Details />
             </ProtectedRoute>
           }
         />
