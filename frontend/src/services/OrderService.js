@@ -16,6 +16,10 @@ api.interceptors.request.use(config => {
 });
 
 const OrderService = {
+    getCategories: () => api.get('categories/'),
+    getProductsByCategory: (categoryId) => api.get(`products/category/${categoryId}`),
+    getCounties: () => api.get('counties/'),
+    getSubCountiesByCounty: (countyId) => api.get(`subcounties/county/${countyId}`),
     // Orders
     getOrderById: (orderId) => api.get(`order/${orderId}/`), // Get order by ID
     getCustomerOrders: (customerId) => api.get(`orders/customer/${customerId}/`), // Get orders by customer ID
