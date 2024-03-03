@@ -23,6 +23,19 @@ const MyOrders = () => {
     fetchOrders();
   }, [user]);
 
+  const renderAssignedTo = (order) => {
+    if (order.farmer_details) {
+      return `${order.farmer_details.first_name} ${order.farmer_details.last_name}`;
+    } else {
+      return <button className="btn btn-primary" onClick={() => handleFindFarmer(order)}>Find</button>;
+    }
+  };
+
+  const handleFindFarmer = (order) => {
+    // Logic to handle finding farmer
+    console.log('Find farmer for order:', order);
+  };
+
   return (
 
     <div>
@@ -37,6 +50,7 @@ const MyOrders = () => {
             <th>Status</th>
             <th>Delivered</th>
             <th>Paid</th>
+            <th>Assigned To:</th> {/* New column */}
           </tr>
         </thead>
         <tbody>
@@ -49,6 +63,7 @@ const MyOrders = () => {
               <td>{order.status}</td>
               <td>{order.delivered ? 'Yes' : 'No'}</td>
               <td>{order.paid ? 'Yes' : 'No'}</td>
+              <td>{renderAssignedTo(order)}</td> {/* Render assigned to field */}
             </tr>
           ))}
         </tbody>
