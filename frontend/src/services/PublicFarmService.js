@@ -13,6 +13,7 @@ const PublicFarmService = {
     getSubCountiesByCounty: (countyId) => api.get(`subcounties/county/${countyId}`),
     getFarmsByFarmerId: (farmerId) => api.get(`farms/farmer/${farmerId}/`),
     getFarmsByProductId: (productId) => api.get(`farms/?product_id=${productId}`),
+    findFarms: (params) => api.get('farms/', { params }),
 };
 
 export default PublicFarmService;
