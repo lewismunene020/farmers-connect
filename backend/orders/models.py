@@ -9,7 +9,7 @@ class Order(models.Model):
     farmer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='farmer_orders', blank=True, null=True)
     quantity_requested = models.PositiveIntegerField()
     delivery_date = models.DateField()
-    status = models.CharField(max_length=50, default='pending')
+    status = models.CharField(max_length=50, default='unassigned')
     delivered = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
     offered_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
