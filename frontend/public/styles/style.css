@@ -405,6 +405,22 @@ body{
     margin: 0px;
 }
 
+.order-details {
+    margin-bottom: 20px;
+}
+
+.order-details-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-details-container p {
+    margin-bottom: 10px;
+}
+
 /* Firefox Only */
 
 @-moz-document url-prefix(){
