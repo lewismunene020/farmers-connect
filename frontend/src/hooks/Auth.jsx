@@ -95,6 +95,7 @@ export function AuthContextProvider({ children }) {
     setUser(null);
     localStorage.removeItem("user.token");
     localStorage.removeItem("user");
+    location.href = "/";
   };
 
   return (
