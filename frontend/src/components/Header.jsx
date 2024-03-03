@@ -2,15 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/Auth";
 
-
 const Header = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <>
       <div id="top" className="top">
         <div className="container">
-          <img src= "/logo.jpg" id = "logo_image" alt="eCom-Store Logo"></img>
+          <img src="/logo.jpg" id="logo_image" alt="eCom-Store Logo"></img>
           <div id="web-title">farmers connect</div>
           <div className="col-md-6 offer">
             {user ? (
@@ -22,24 +21,37 @@ const Header = () => {
                 Karibu: Guest
               </Link>
             )}
-            
           </div>
           <div className="col-md-6">
             <ul className="menu">
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-                {user && user.is_farmer ? (
-                  <Link to="/farmer/dashboard">My Account</Link>
-                ) : (
-                  <Link to="/customer/dashboard">My Account</Link>
-                )}
-              </li>
-              
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
+              {!user ? (
+                <>
+                  <li>
+                    <Link to="/register">Register</Link>
+                  </li>
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    {user && user.is_farmer ? (
+                      <Link to="/farmer/dashboard">My Account</Link>
+                    ) : (
+                      <Link to="/customer/dashboard">My Account</Link>
+                    )}
+                  </li>
+                  <li
+                    className="text-white"
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
+                    Logout
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
@@ -85,13 +97,16 @@ const Header = () => {
                     <Link to="/customer/dashboard">My Account</Link>
                   )}
                 </li>
-                
+
                 <li>
                   <Link to="/contact">Contact Us</Link>
                 </li>
               </ul>
             </div>
-            <Link to="/customer/createorder" className="btn navbar-btn btn-primary right">
+            <Link
+              to="/customer/createorder"
+              className="btn navbar-btn btn-primary right"
+            >
               <span>Create Order</span>
             </Link>
             <div className="navbar-collapse collapse right">
