@@ -1,7 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import Order
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, CreateOrderSerializer
 
 class OrderDetailAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
@@ -9,7 +9,7 @@ class OrderDetailAPIView(generics.RetrieveAPIView):
     permission_classes = []
 
 class OrderCreateAPIView(generics.CreateAPIView):
-    serializer_class = OrderSerializer
+    serializer_class = CreateOrderSerializer
     permission_classes = []
 
     def perform_create(self, serializer):
