@@ -12,8 +12,8 @@ const CreateOrder = () => {
     product_id: "",
     quantity_requested: "",
     delivery_date: "",
-    location_county_id: "",
-    location_subcounty_id: "",
+    county_id: "",
+    subcounty_id: "",
     farmer: null,
   });
 
@@ -144,12 +144,12 @@ const CreateOrder = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="location_county_id">County</label>
+                <label htmlFor="county_id">County</label>
                 <select
                   className="form-control"
-                  id="location_county_id"
-                  name="location_county_id"
-                  value={formData.location_county_id}
+                  id="county_id"
+                  name="county_id"
+                  value={formData.county_id}
                   onChange={(e) => {
                     handleChange(e); // Update formData
                     handleCountyChange(e.target.value); // Fetch sub-counties based on the selected county
@@ -165,12 +165,12 @@ const CreateOrder = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="location_subcounty_id">Sub-County</label>
+                <label htmlFor="subcounty_id">Sub-County</label>
                 <select
                   className="form-control"
-                  id="location_subcounty_id"
-                  name="location_subcounty_id"
-                  value={formData.location_subcounty_id}
+                  id="subcounty_id"
+                  name="subcounty_id"
+                  value={formData.subcounty_id}
                   onChange={handleChange}
                   required
                 >
