@@ -17,6 +17,8 @@ const CreateOrder = () => {
     farmer: null,
   });
 
+  const [productUnit, setProductUnit] = useState("");
+
   useEffect(() => {
     fetchCategories();
     fetchCounties();
@@ -44,6 +46,14 @@ const CreateOrder = () => {
     OrderService.getSubCountiesByCounty(countyId)
       .then((res) => setSubCounties(res.data))
       .catch((error) => console.error("Error fetching subcounties:", error));
+  };
+
+  const handleProductChange = (productId) => {
+    const selectedProduct = products.find(
+      (product) => product.product_id == productId
+    );
+    setFormData({ ...formData, product_id: productId });
+    setProductUnit(selectedProduct.unit);
   };
 
   const handleChange = (e) => {
@@ -108,7 +118,10 @@ const CreateOrder = () => {
                   id="product_id"
                   name="product_id"
                   value={formData.product_id}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleProductChange(e.target.value);
+                  }}
                   required
                 >
                   <option value="">Select Product</option>
@@ -120,7 +133,7 @@ const CreateOrder = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="quantity_requested">Quantity Requested</label>
+                <label htmlFor="quantity_requested">Quantity Required ({productUnit})</label>
                 <input
                   type="number"
                   className="form-control"
