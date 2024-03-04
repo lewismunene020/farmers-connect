@@ -12,10 +12,12 @@ const CreateOrder = () => {
     product_id: "",
     quantity_requested: "",
     delivery_date: "",
-    location_county_id: "",
-    location_subcounty_id: "",
+    county_id: "",
+    subcounty_id: "",
     farmer: null,
   });
+
+  const [productUnit, setProductUnit] = useState("");
 
   useEffect(() => {
     fetchCategories();
@@ -44,6 +46,14 @@ const CreateOrder = () => {
     OrderService.getSubCountiesByCounty(countyId)
       .then((res) => setSubCounties(res.data))
       .catch((error) => console.error("Error fetching subcounties:", error));
+  };
+
+  const handleProductChange = (productId) => {
+    const selectedProduct = products.find(
+      (product) => product.product_id == productId
+    );
+    setFormData({ ...formData, product_id: productId });
+    setProductUnit(selectedProduct.unit);
   };
 
   const handleChange = (e) => {
@@ -108,7 +118,10 @@ const CreateOrder = () => {
                   id="product_id"
                   name="product_id"
                   value={formData.product_id}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleProductChange(e.target.value);
+                  }}
                   required
                 >
                   <option value="">Select Product</option>
@@ -120,7 +133,7 @@ const CreateOrder = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="quantity_requested">Quantity Requested</label>
+                <label htmlFor="quantity_requested">Quantity Required ({productUnit})</label>
                 <input
                   type="number"
                   className="form-control"
@@ -144,12 +157,12 @@ const CreateOrder = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="location_county_id">County</label>
+                <label htmlFor="county_id">County</label>
                 <select
                   className="form-control"
-                  id="location_county_id"
-                  name="location_county_id"
-                  value={formData.location_county_id}
+                  id="county_id"
+                  name="county_id"
+                  value={formData.county_id}
                   onChange={(e) => {
                     handleChange(e); // Update formData
                     handleCountyChange(e.target.value); // Fetch sub-counties based on the selected county
@@ -165,12 +178,12 @@ const CreateOrder = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="location_subcounty_id">Sub-County</label>
+                <label htmlFor="subcounty_id">Sub-County</label>
                 <select
                   className="form-control"
-                  id="location_subcounty_id"
-                  name="location_subcounty_id"
-                  value={formData.location_subcounty_id}
+                  id="subcounty_id"
+                  name="subcounty_id"
+                  value={formData.subcounty_id}
                   onChange={handleChange}
                   required
                 >
