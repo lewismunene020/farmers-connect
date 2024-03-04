@@ -14,6 +14,7 @@ const PublicFarmService = {
     getFarmsByFarmerId: (farmerId) => api.get(`farms/farmer/${farmerId}/`),
     getFarmsByProductId: (productId) => api.get(`farms/?product_id=${productId}`),
     findFarms: (params) => api.get('farms/', { params }),
+    getAllFarms: () => api.get('farms/'),
 };
 
 export default PublicFarmService;
