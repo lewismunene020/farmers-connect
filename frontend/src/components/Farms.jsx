@@ -7,20 +7,48 @@ const Farms = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
-        if (selectedProduct) {
+        PublicFarmService.getAllFarms()
+        .then(response => {
+            setFarms(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching all farms: ', error);
+        });
+    }, []); //Empty dependency array causes the effect to run only once on mount
+
+    const onProductClick = productId => {
+        if(productId === selectedProduct) {
+            // if the same category is selected again, reset selectedProduct to null to show all products
+            setSelectedProduct(null);
+        }
+        else{
+            // Otherwise, update selectedProduct to trigger the useEffect for fetching filtered farms data
+            setSelectedProduct(productId);
+        }
+    };
+
+    useEffect(() => {
+        if(selectedProduct) {
+            // Fetch filtered farms data based on the selected product category
             PublicFarmService.getFarmsByProductId(selectedProduct)
                 .then(response => {
                     setFarms(response.data);
                 })
                 .catch(error => {
-                    console.error('Error fetching farms by product ID:', error);
+                    console.error('Error fetching filtered farms by product ID: ', error);
+                });
+        } else {
+            // Fetch all farms data if no product category is selected
+            PublicFarmService.getAllFarms()
+                .then(response => {
+                    setFarms(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching all farms: ', error);
                 });
         }
     }, [selectedProduct]);
 
-    const onProductClick = productId => {
-        setSelectedProduct(productId);
-    };
 
     return (
         <div id="content">
