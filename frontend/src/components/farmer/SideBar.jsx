@@ -15,7 +15,7 @@ class SideBar extends React.Component {
   };
 
   render() {
-    const farmerName = "Anthony Kamau"; // Example farmer name
+    const farmerName = ""; // Example farmer name
     const farmerImage = "/avatar.png"; // Image path
 
     return (
