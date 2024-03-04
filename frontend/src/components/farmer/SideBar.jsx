@@ -15,7 +15,7 @@ class SideBar extends React.Component {
   };
 
   render() {
-    const farmerName = "Anthony Kamau"; // Example farmer name
+    const farmerName = ""; // Example farmer name
     const farmerImage = "/avatar.png"; // Image path
 
     return (
@@ -49,7 +49,7 @@ class SideBar extends React.Component {
               </a>
               <ul className={this.state.activeMenu === 'orders' ? 'nav-pills nav-stacked nav' : 'collapse'}>
                 <li><a href="#">- My Orders</a></li>
-                <li><a href="#">- Customer Orders</a></li>
+                <li><a href="/farmer/customerorders">- Customer Orders</a></li>
                 <li><a href="#">- Recommended For Me</a></li>
               </ul>
             </li>

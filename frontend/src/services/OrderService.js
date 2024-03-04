@@ -28,6 +28,7 @@ const OrderService = {
     deleteOrder: (orderId) => api.delete(`order/${orderId}/delete/`), // Delete order by ID
     createOrder: (orderData) => api.post('order/create/', orderData), // Create new order
     getAllOrders: () => api.get('orders/'), // Get all orders
+    getUnassignedOrders: () => api.get('orders/?status=unassigned'), // Get unassigned orders
 };
 
 export default OrderService;
