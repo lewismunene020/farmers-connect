@@ -40,7 +40,14 @@ const CustomerOrders = () => {
             console.error('No order selected.');
             return;
         }
-        
+
+        // Check if required fields are filled out
+        if (!pricePerUnit || !deliveryDate) {
+            console.error('Please fill out all required fields.');
+            notify("error", "Please fill out all required fields.");
+            return;
+        }
+
         const bidData = {
             order: selectedOrder.order_id,
             price_per_unit: pricePerUnit,
@@ -115,11 +122,11 @@ const CustomerOrders = () => {
                 <form>
                     <div className="form-group">
                         <label>Price per {selectedOrder && selectedOrder.product_id.unit}:</label>
-                        <input type="text" className="form-control" value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} />
+                        <input type="text" className="form-control" required value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Delivery Date:</label>
-                        <input type="date" className="form-control" value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} />
+                        <input type="date" className="form-control" required value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} />
                     </div>
                     <button type="button" className="btn btn-primary" onClick={handleBidSubmit}>Submit Bid</button>
                 </form>
