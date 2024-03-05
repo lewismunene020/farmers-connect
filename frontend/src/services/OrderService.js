@@ -29,6 +29,12 @@ const OrderService = {
     createOrder: (orderData) => api.post('order/create/', orderData), // Create new order
     getAllOrders: () => api.get('orders/'), // Get all orders
     getUnassignedOrders: () => api.get('orders/?status=unassigned'), // Get unassigned orders
+    // Bids
+    getBidById: (bidId) => api.get(`bid/${bidId}/`), // Get bid by ID
+    updateBid: (bidId, bidData) => api.put(`bid/${bidId}/update/`, bidData), // Update bid by ID
+    deleteBid: (bidId) => api.delete(`bid/${bidId}/delete/`), // Delete bid by ID
+    createBid: (bidData) => api.post('bid/create/', bidData), // Create new bid
+    getBids: () => api.get('bids/'), // Get all bids
 };
 
 export default OrderService;
