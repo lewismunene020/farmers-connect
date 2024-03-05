@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import OrderService from '../../services/OrderService';
 import SideBar from './SideBar';
 import { useAuth } from '../../hooks/Auth';
 
 const CustomerOrders = () => {
     const [orders, setOrders] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const { user } = useAuth();
+    const [pricePerUnit, setPricePerUnit] = useState('');
+    const [deliveryDate, setDeliveryDate] = useState('');
 
     useEffect(() => {
         const fetchUnassignedOrders = async () => {
@@ -22,6 +26,22 @@ const CustomerOrders = () => {
 
         fetchUnassignedOrders();
     }, [user]);
+
+    const handleBidClick = () => {
+        setShowModal(true);
+    };
+
+    const handleBidSubmit = async () => {
+        // Logic to submit bid using OrderService
+        try {
+            // Call OrderService method to submit bid
+            await OrderService.submitBid(pricePerUnit, deliveryDate);
+            // Optionally, you can close the modal here
+            setShowModal(false);
+        } catch (error) {
+            console.error('Error submitting bid:', error);
+        }
+    };
 
     return (
         <div id="content">
@@ -49,6 +69,7 @@ const CustomerOrders = () => {
                                     <th>Delivery Date</th>
                                     <th>Customer</th>
                                     <th>Location</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,6 +81,9 @@ const CustomerOrders = () => {
                                         <td>{order.delivery_date}</td>
                                         <td>{`${order.customer.first_name} ${order.customer.last_name}`}</td>
                                         <td>{`${order.subcounty_id.subcounty_name}, ${order.county_id.county_name}`}</td>
+                                        <td>
+                                            <button className="btn btn-primary" onClick={handleBidClick}>Bid</button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -67,6 +91,22 @@ const CustomerOrders = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Modal for submitting bid */}
+            <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
+                <h2>Submit Bid</h2>
+                <form>
+                    <div className="form-group">
+                        <label>Price per Unit:</label>
+                        <input type="text" className="form-control" value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} />
+                    </div>
+                    <div className="form-group">
+                        <label>Delivery Date:</label>
+                        <input type="date" className="form-control" value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} />
+                    </div>
+                    <button type="button" className="btn btn-primary" onClick={handleBidSubmit}>Submit Bid</button>
+                </form>
+            </Modal>
         </div>
     );
 };
