@@ -58,23 +58,6 @@ const CustomerOrders = () => {
                 notify("error", unpackErrors(error.response.data));
                 setShowModal(false);
             });
-        // try{ 
-        //     if (!selectedOrder) {
-        //         console.error('No order selected.');
-        //         return;
-        //     }
-
-        //     const bidData = {
-        //         order: selectedOrder.order_id,
-        //         price_per_unit: pricePerUnit,
-        //         delivery_date: deliveryDate
-        //     };
-        //     console.log(bidData);
-        //     await OrderService.createBid(bidData);
-        //     setShowModal(false);
-        // } catch (error) {
-        //     console.error('Error submitting bid:', error);
-        // }
     };
 
     return (
@@ -131,7 +114,7 @@ const CustomerOrders = () => {
                 <h2>Submit Bid</h2>
                 <form>
                     <div className="form-group">
-                        <label>Price per Unit:</label>
+                        <label>Price per {selectedOrder && selectedOrder.product_id.unit}:</label>
                         <input type="text" className="form-control" value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} />
                     </div>
                     <div className="form-group">
