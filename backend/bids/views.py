@@ -8,10 +8,12 @@ from farms.models import Farm
 class BidDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
+    permission_classes = []
     lookup_url_kwarg = 'pk'
 
 class BidCreateAPIView(generics.CreateAPIView):
     serializer_class = CreateBidSerializer
+    permission_classes = []
 
     def perform_create(self, serializer):
         order_id = self.request.data.get('order')
@@ -29,6 +31,7 @@ class BidCreateAPIView(generics.CreateAPIView):
 
 class BidListAPIView(generics.ListAPIView):
     serializer_class = BidSerializer
+    permission_classes = []
 
     def get_queryset(self):
         queryset = Bid.objects.all()
