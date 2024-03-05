@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import OrderService from '../../services/OrderService';
 import SideBar from './SideBar';
+import { unpackErrors, notify } from "../../hooks/Notification";
 import { useAuth } from '../../hooks/Auth';
 
 const CustomerOrders = () => {
     const [orders, setOrders] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const { user } = useAuth();
+    const [selectedOrder, setSelectedOrder] = useState(null);
     const [pricePerUnit, setPricePerUnit] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
 
@@ -27,20 +29,52 @@ const CustomerOrders = () => {
         fetchUnassignedOrders();
     }, [user]);
 
-    const handleBidClick = () => {
+    const handleBidClick = (order) => {
+        setSelectedOrder(order);
         setShowModal(true);
     };
 
-    const handleBidSubmit = async () => {
-        // Logic to submit bid using OrderService
-        try {
-            // Call OrderService method to submit bid
-            await OrderService.submitBid(pricePerUnit, deliveryDate);
-            // Optionally, you can close the modal here
-            setShowModal(false);
-        } catch (error) {
-            console.error('Error submitting bid:', error);
+    const handleBidSubmit = (e) => {
+        e.preventDefault();
+        if (!selectedOrder) {
+            console.error('No order selected.');
+            return;
         }
+        
+        const bidData = {
+            order: selectedOrder.order_id,
+            price_per_unit: pricePerUnit,
+            delivery_date: deliveryDate
+        };
+        console.log(bidData);
+        OrderService.createBid(bidData)
+            .then(() => {
+                console.log("Bid submitted successfully");
+                notify("success", "Bid submitted successfully");
+                setShowModal(false);
+            })
+            .catch((error) => {
+                console.error("Error creating bid:", error);
+                notify("error", unpackErrors(error.response.data));
+                setShowModal(false);
+            });
+        // try{ 
+        //     if (!selectedOrder) {
+        //         console.error('No order selected.');
+        //         return;
+        //     }
+
+        //     const bidData = {
+        //         order: selectedOrder.order_id,
+        //         price_per_unit: pricePerUnit,
+        //         delivery_date: deliveryDate
+        //     };
+        //     console.log(bidData);
+        //     await OrderService.createBid(bidData);
+        //     setShowModal(false);
+        // } catch (error) {
+        //     console.error('Error submitting bid:', error);
+        // }
     };
 
     return (
@@ -69,7 +103,7 @@ const CustomerOrders = () => {
                                     <th>Delivery Date</th>
                                     <th>Customer</th>
                                     <th>Location</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,7 +116,7 @@ const CustomerOrders = () => {
                                         <td>{`${order.customer.first_name} ${order.customer.last_name}`}</td>
                                         <td>{`${order.subcounty_id.subcounty_name}, ${order.county_id.county_name}`}</td>
                                         <td>
-                                            <button className="btn btn-primary" onClick={handleBidClick}>Bid</button>
+                                            <button className="btn btn-primary" onClick={() => handleBidClick(order)}>Bid</button>
                                         </td>
                                     </tr>
                                 ))}

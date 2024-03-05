@@ -26,5 +26,4 @@ class BidSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bid
-        fields = ['bid_id', 'order', 'farmer', 'price_per_unit', 'delivery_date', 'status']
-        read_only_fields = ['farmer']
+        fields = '__all__'

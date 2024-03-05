@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-const unpackErrors = (data) => {
+export const unpackErrors = (data) => {
   let errors = [];
   // if the error is a string then it is an error
   if (typeof data === "string") {
