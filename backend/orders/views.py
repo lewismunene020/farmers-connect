@@ -63,3 +63,13 @@ class RecommendedOrdersView(generics.ListAPIView):
         product_ids = [farm.product_id for farm in farms]
         recommended_orders = Order.objects.filter(status='unassigned', product_id__in=product_ids)
         return recommended_orders
+
+class RecommendedOrdersByCountyView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = []
+
+    def get_queryset(self):
+        farmer_id = self.kwargs['farmer_id']
+        farmer_farm_counties = Farm.objects.filter(farmer_id=farmer_id).values_list('location_county_id', flat=True)
+        farmer_farm_products = Farm.objects.filter(farmer_id=farmer_id).values_list('product_id', flat=True)
+        return Order.objects.filter(county_id__in=farmer_farm_counties, product_id__in=farmer_farm_products, status='unassigned')
