@@ -30,6 +30,7 @@ const OrderService = {
     getAllOrders: () => api.get('orders/'), // Get all orders
     getUnassignedOrders: () => api.get('orders/?status=unassigned'), // Get unassigned orders
     getRecommendedOrdersByFarmerId: (farmerId) => api.get(`orders/recommended/all/${farmerId}`),
+    getRecommendedOrdersByCounty: (farmerId) => api.get(`orders/recommended/county/${farmerId}/`),
     // Bids
     getBidById: (bidId) => api.get(`bid/${bidId}/`), // Get bid by ID
     updateBid: (bidId, bidData) => api.put(`bid/${bidId}/update/`, bidData), // Update bid by ID
