@@ -50,7 +50,7 @@ class SideBar extends React.Component {
               <ul className={this.state.activeMenu === 'orders' ? 'nav-pills nav-stacked nav' : 'collapse'}>
                 <li><a href="#">- My Orders</a></li>
                 <li><a href="/farmer/customerorders">- Customer Orders</a></li>
-                <li><a href="#">- Recommended For Me</a></li>
+                <li><a href="/farmer/recommendedorders">- Recommended For Me</a></li>
               </ul>
             </li>
             <li className={this.state.activeMenu === 'demand_analysis' ? 'active' : ''}>
