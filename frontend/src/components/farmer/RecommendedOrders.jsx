@@ -14,19 +14,23 @@ const RecommendedOrders = () => {
     const [deliveryDate, setDeliveryDate] = useState('');
 
     useEffect(() => {
-        const fetchUnassignedOrders = async () => {
+        const fetchRecommendedOrders = async () => {
             try {
                 if (user) {
                     const userId = user.id;
-                    const response = await OrderService.getRecommendedOrdersByFarmerId(userId);
-                    setOrders(response.data);
+                    const response1 = await OrderService.getRecommendedOrdersByFarmerId(userId);
+                    const response2 = await OrderService.getRecommendedOrdersByCounty(userId);
+                    setOrders({
+                        ordersInYourArea: response2.data,
+                        allOrdersForYourProducts: response1.data
+                    });
                 }
             } catch (error) {
-                console.error('Error fetching unassigned orders:', error);
+                console.error('Error fetching recommended orders:', error);
             }
         };
 
-        fetchUnassignedOrders();
+        fetchRecommendedOrders();
     }, [user]);
 
     const handleBidClick = (order) => {
@@ -83,7 +87,7 @@ const RecommendedOrders = () => {
                 </div>
                 <div className="col-md-9">
                     <div className="box">
-                        <h3>Recommended Orders</h3>
+                        <h3>Orders in your area</h3>
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -97,7 +101,39 @@ const RecommendedOrders = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {orders.map((order) => (
+                                {orders.ordersInYourArea && orders.ordersInYourArea.map((order) => (
+                                    <tr key={order.order_id}>
+                                        <td>{order.order_id}</td>
+                                        <td>{order.product_id.product_name}</td>
+                                        <td>{order.quantity_requested} {order.product_id.unit}</td>
+                                        <td>{order.delivery_date}</td>
+                                        <td>{`${order.customer.first_name} ${order.customer.last_name}`}</td>
+                                        <td>{`${order.subcounty_id.subcounty_name}, ${order.county_id.county_name}`}</td>
+                                        <td>
+                                            <button className="btn btn-primary" onClick={() => handleBidClick(order)}>Bid</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="box">
+                        <h3>All orders for your products</h3>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity Requested</th>
+                                    <th>Delivery Date</th>
+                                    <th>Customer</th>
+                                    <th>Location</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {orders.allOrdersForYourProducts && orders.allOrdersForYourProducts.map((order) => (
                                     <tr key={order.order_id}>
                                         <td>{order.order_id}</td>
                                         <td>{order.product_id.product_name}</td>

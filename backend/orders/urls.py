@@ -7,6 +7,7 @@ from .views import (
     OrderDeleteAPIView,
     OrderCreateAPIView,
     OrderListAPIView,
+    RecommendedOrdersByCountyView,
     RecommendedOrdersView,
 )
 
@@ -19,5 +20,5 @@ urlpatterns = [
     path('api/order/create/', OrderCreateAPIView.as_view(), name='order-create'),
     path('api/orders/', OrderListAPIView.as_view(), name='order-list'),
     path('api/orders/recommended/all/<int:farmer_id>', RecommendedOrdersView.as_view(), name='recommended_orders'),
-
+    path('api/orders/recommended/county/<int:farmer_id>/', RecommendedOrdersByCountyView.as_view(), name='recommended_orders_by_county'),
 ]
