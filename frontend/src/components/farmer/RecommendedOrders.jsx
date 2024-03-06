@@ -5,7 +5,7 @@ import SideBar from './SideBar';
 import { unpackErrors, notify } from "../../hooks/Notification";
 import { useAuth } from '../../hooks/Auth';
 
-const CustomerOrders = () => {
+const RecommendedOrders = () => {
     const [orders, setOrders] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const { user } = useAuth();
@@ -18,7 +18,7 @@ const CustomerOrders = () => {
             try {
                 if (user) {
                     const userId = user.id;
-                    const response = await OrderService.getUnassignedOrders(userId);
+                    const response = await OrderService.getRecommendedOrdersByFarmerId(userId);
                     setOrders(response.data);
                 }
             } catch (error) {
@@ -75,7 +75,7 @@ const CustomerOrders = () => {
                         <li>
                             <a href="/">Home</a>
                         </li>
-                        <li>Customer Orders</li>
+                        <li>Recommended Orders</li>
                     </ul>
                 </div>
                 <div className="col-md-3">
@@ -83,7 +83,7 @@ const CustomerOrders = () => {
                 </div>
                 <div className="col-md-9">
                     <div className="box">
-                        <h3>All Customer Orders</h3>
+                        <h3>Recommended Orders</h3>
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -135,4 +135,4 @@ const CustomerOrders = () => {
     );
 };
 
-export default CustomerOrders;
+export default RecommendedOrders;
