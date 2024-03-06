@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import OrderService from "../../services/OrderService";
 import { notify } from "../../hooks/Notification";
-
+import { useNavigate } from "react-router-dom";
 const CreateOrder = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -18,6 +18,7 @@ const CreateOrder = () => {
   });
 
   const [productUnit, setProductUnit] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCategories();
@@ -68,6 +69,7 @@ const CreateOrder = () => {
       .then((res) => {
         console.log("Order created successfully:", res.data);
         notify("success", "Order created successfully");
+        navigate("/customer/dashboard");
       })
       .catch((error) => {
         console.error("Error creating order:", error);
@@ -105,7 +107,10 @@ const CreateOrder = () => {
                 >
                   <option value="">Select Category</option>
                   {categories.map((category) => (
-                    <option key={category.category_id} value={category.category_id}>
+                    <option
+                      key={category.category_id}
+                      value={category.category_id}
+                    >
                       {category.category_name}
                     </option>
                   ))}
@@ -133,7 +138,9 @@ const CreateOrder = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="quantity_requested">Quantity Required ({productUnit})</label>
+                <label htmlFor="quantity_requested">
+                  Quantity Required ({productUnit})
+                </label>
                 <input
                   type="number"
                   className="form-control"
@@ -189,13 +196,18 @@ const CreateOrder = () => {
                 >
                   <option value="">Select Sub-County</option>
                   {subCounties.map((subCounty) => (
-                    <option key={subCounty.subcounty_id} value={subCounty.subcounty_id}>
+                    <option
+                      key={subCounty.subcounty_id}
+                      value={subCounty.subcounty_id}
+                    >
                       {subCounty.subcounty_name}
                     </option>
                   ))}
                 </select>
               </div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </form>
           </div>
         </div>
