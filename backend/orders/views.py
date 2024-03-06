@@ -1,6 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import Order
+from farms.models import Farm
 from .serializers import OrderSerializer, CreateOrderSerializer
 
 class OrderDetailAPIView(generics.RetrieveAPIView):
@@ -51,3 +52,14 @@ class OrderDeleteAPIView(generics.DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = []
+
+class RecommendedOrdersView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = []
+
+    def get_queryset(self):
+        farmer_id = self.kwargs['farmer_id']
+        farms = Farm.objects.filter(farmer_id=farmer_id)
+        product_ids = [farm.product_id for farm in farms]
+        recommended_orders = Order.objects.filter(status='unassigned', product_id__in=product_ids)
+        return recommended_orders
