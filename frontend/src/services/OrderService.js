@@ -37,7 +37,7 @@ const OrderService = {
     deleteBid: (bidId) => api.delete(`bid/${bidId}/delete/`), // Delete bid by ID
     createBid: (bidData) => api.post('bid/create/', bidData), // Create new bid
     getBids: () => api.get('bids/'), // Get all bids
-    getOrderBids: (orderId) => api.get(`bids/?order_id=${orderId}`), // Get order bids
+    getOrderBids: (orderId) => api.get(`bids/?status=pending&order_id=${orderId}`), // Get order bids
 };
 
 export default OrderService;
