@@ -9,6 +9,7 @@ from rest_framework.request import Request
 def  generate_unique_id():
     return uuid4().hex
 
+# Create your models here.
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         if not email:
