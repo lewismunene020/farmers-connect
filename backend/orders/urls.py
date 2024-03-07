@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    MostOrderedProductView,
     OrderDetailAPIView,
     CustomerOrdersAPIView,
     FarmerOrdersAPIView,
@@ -19,5 +20,6 @@ urlpatterns = [
     path('api/order/create/', OrderCreateAPIView.as_view(), name='order-create'),
     path('api/orders/', OrderListAPIView.as_view(), name='order-list'),
     path('api/orders/recommended/all/<int:farmer_id>', RecommendedOrdersView.as_view(), name='recommended_orders'),
+    path('api/most_ordered_product/', MostOrderedProductView.as_view(), name='most-ordered-product'),
 
 ]
