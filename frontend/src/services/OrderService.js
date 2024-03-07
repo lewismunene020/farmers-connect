@@ -33,6 +33,8 @@ const OrderService = {
     getRecommendedOrdersByCounty: (farmerId) => api.get(`orders/recommended/county/${farmerId}/`),
     // Bids
     getBidById: (bidId) => api.get(`bid/${bidId}/`), // Get bid by ID
+    acceptBid: (bidId) => api.post(`bid/accept/${bidId}/`),
+    rejectBid: (bidId) => api.post(`bid/reject/${bidId}/`),
     updateBid: (bidId, bidData) => api.put(`bid/${bidId}/update/`, bidData), // Update bid by ID
     deleteBid: (bidId) => api.delete(`bid/${bidId}/delete/`), // Delete bid by ID
     createBid: (bidData) => api.post('bid/create/', bidData), // Create new bid

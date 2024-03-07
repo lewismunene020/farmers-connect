@@ -256,7 +256,7 @@ const AddFarm = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="price_per_unit">Price per {productUnit}</label>
+                <label htmlFor="price_per_unit">Starting Price (per {productUnit})</label>
                 <input
                   type="number"
                   className="form-control"

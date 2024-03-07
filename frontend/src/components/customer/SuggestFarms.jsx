@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PublicFarmService from '../../services/PublicFarmService';
 import OrderService from '../../services/OrderService';
+import { notify } from "../../hooks/Notification";
 
 const SuggestFarms = ({ order }) => {
     const [farms, setFarms] = useState([]);
@@ -60,6 +61,34 @@ const SuggestFarms = ({ order }) => {
         fetchBids();
     }, [order, selectedTab]);
 
+    const handleAcceptBid = async (bidId) => {
+        try {
+            // Call the OrderService method to accept the bid
+            await OrderService.acceptBid(bidId);
+            // After accepting, fetch the updated list of bids
+            const response = await OrderService.getOrderBids(order.order_id);
+            notify("success", "Bid accepted successfully");
+            setBids(response.data);
+        } catch (error) {
+            console.error('Error accepting bid:', error);
+            notify("errpr", "Error accepting bid");
+        }
+    };
+
+    const handleRejectBid = async (bidId) => {
+        try {
+            // Call the OrderService method to reject the bid
+            await OrderService.rejectBid(bidId);
+            // After rejecting, fetch the updated list of bids
+            const response = await OrderService.getOrderBids(order.order_id);
+            notify("success", "Bid rejected successfully");
+            setBids(response.data);
+        } catch (error) {
+            console.error('Error rejecting bid:', error);
+            notify("error", "Error rejecting bid");
+        }
+    };
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -103,10 +132,10 @@ const SuggestFarms = ({ order }) => {
                                                 <p>Product: {farm.product_id.product_name}</p>
                                                 <p>Location: {farm.location_subcounty_id.subcounty_name}, {farm.location_county_id.county_name}</p>
                                                 <p>Quantity Available: {farm.quantity_available} {farm.product_id.unit}</p>
-                                                <p className="price">KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
+                                                <p className="price">From <b>KES {farm.price_per_unit}</b> (per {farm.product_id.unit})</p>
                                                 <p className="button">
                                                     <a href="customer/chat" className="btn btn-default">Chat Farmer</a>
-                                                    <a href="customer/order" className="btn btn-primary">Place Order</a>
+                                                    <a href="#" className="btn btn-primary">Request Bid</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -135,10 +164,10 @@ const SuggestFarms = ({ order }) => {
                                                 <p>Product: {farm.product_id.product_name}</p>
                                                 <p>Location: {farm.location_subcounty_id.subcounty_name}, {farm.location_county_id.county_name}</p>
                                                 <p>Quantity Available: {farm.quantity_available} {farm.product_id.unit}</p>
-                                                <p className="price">KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
+                                                <p className="price">From <b>KES {farm.price_per_unit}</b> (per {farm.product_id.unit})</p>
                                                 <p className="button">
                                                     <a href="customer/chat" className="btn btn-default">Chat Farmer</a>
-                                                    <a href="customer/order" className="btn btn-primary">Place Order</a>
+                                                    <a href="#" className="btn btn-primary">Request Bid</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -167,10 +196,10 @@ const SuggestFarms = ({ order }) => {
                                                 <p>Product: {farm.product_id.product_name}</p>
                                                 <p>Location: {farm.location_subcounty_id.subcounty_name}, {farm.location_county_id.county_name}</p>
                                                 <p>Quantity Available: {farm.quantity_available} {farm.product_id.unit}</p>
-                                                <p className="price">KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
+                                                <p className="price">From <b>KES {farm.price_per_unit}</b> (per {farm.product_id.unit})</p>
                                                 <p className="button">
                                                     <a href="customer/chat" className="btn btn-default">Chat Farmer</a>
-                                                    <a href="customer/order" className="btn btn-primary">Place Order</a>
+                                                    <a href="#" className="btn btn-primary">Request Bid</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -196,6 +225,7 @@ const SuggestFarms = ({ order }) => {
                                 <th>Price Per Unit</th>
                                 <th>Total Cost</th>
                                 <th>Delivery Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -205,6 +235,10 @@ const SuggestFarms = ({ order }) => {
                                     <td>{bid.price_per_unit}</td>
                                     <td>{bid.price_per_unit * order.quantity_requested}</td>
                                     <td>{bid.delivery_date}</td>
+                                    <td>
+                                        <button className="btn-success" onClick={() => handleAcceptBid(bid.bid_id)}>Accept</button>
+                                        <button className="btn-danger" onClick={() => handleRejectBid(bid.bid_id)}>Reject</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
