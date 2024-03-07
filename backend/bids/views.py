@@ -38,11 +38,14 @@ class BidListAPIView(generics.ListAPIView):
         queryset = Bid.objects.all()
         order_id = self.request.query_params.get('order_id')
         farmer_id = self.request.query_params.get('farmer_id')
+        status = self.request.query_params.get('status')
 
         if order_id:
             queryset = queryset.filter(order=order_id)
         if farmer_id:
             queryset = queryset.filter(farmer=farmer_id)
+        if status:
+            queryset = queryset.filter(status=status)
 
         return queryset
 
