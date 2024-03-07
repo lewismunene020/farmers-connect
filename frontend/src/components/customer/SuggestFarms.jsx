@@ -135,7 +135,7 @@ const SuggestFarms = ({ order }) => {
                                                 <p className="price">KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
                                                 <p className="button">
                                                     <a href="customer/chat" className="btn btn-default">Chat Farmer</a>
-                                                    <a href="customer/order" className="btn btn-primary">Place Order</a>
+                                                    <a href="#" className="btn btn-primary">Request Bid</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -167,7 +167,7 @@ const SuggestFarms = ({ order }) => {
                                                 <p className="price">KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
                                                 <p className="button">
                                                     <a href="customer/chat" className="btn btn-default">Chat Farmer</a>
-                                                    <a href="customer/order" className="btn btn-primary">Place Order</a>
+                                                    <a href="#" className="btn btn-primary">Request Bid</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -199,7 +199,7 @@ const SuggestFarms = ({ order }) => {
                                                 <p className="price">KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
                                                 <p className="button">
                                                     <a href="customer/chat" className="btn btn-default">Chat Farmer</a>
-                                                    <a href="customer/order" className="btn btn-primary">Place Order</a>
+                                                    <a href="#" className="btn btn-primary">Request Bid</a>
                                                 </p>
                                             </div>
                                         </div>
