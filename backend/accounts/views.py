@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken ,OutstandingToken
 
 from accounts import  logger
 
+# Create your views here.
 def get_tokens_for_user(user:User):
     refresh = RefreshToken.for_user(user)
 
