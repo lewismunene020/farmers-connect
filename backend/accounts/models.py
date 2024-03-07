@@ -5,7 +5,7 @@ from uuid import uuid4
 from django.db.models  import Q
 from rest_framework.request import Request
 
-# Create models for the application.
+# Create models here.
 def  generate_unique_id():
     return uuid4().hex
 
