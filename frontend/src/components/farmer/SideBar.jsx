@@ -9,7 +9,6 @@ const SideBar = (props) => {
   };
 
   const { user } = useAuth();
- 
   const [farmerName, setFarmerName] = useState("");
   const [farmerImage, setFarmerImage] = useState("/avatar.png");
 
@@ -64,8 +63,10 @@ const SideBar = (props) => {
             </a>
             <ul className={activeMenu === 'demand_analysis' ? 'nav-pills nav-stacked nav' : 'collapse'}>
               <li><a href="#">- Most Sought Products</a></li>
+              <li><a href="#">- Orders Without Supply</a></li>
               <li><a href="#">- Demand by Month of Year</a></li>
               <li><a href="#">- Demand by Location</a></li>
+              
             </ul>
           </li>
           <li>
