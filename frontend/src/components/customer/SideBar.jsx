@@ -5,7 +5,7 @@ const SideBar = (props) => {
   // const customerName = "John Doe";
   // const customerImage = "/avatar.png";
   const { user } = useAuth();
-
+ 
   const [customerName, setCustomerName] = useState("");
   const [customerImage, setCustomerImage] = useState("/avatar.png");
 
