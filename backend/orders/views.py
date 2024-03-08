@@ -1,10 +1,13 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.request import Request
 from .models import Order
 from api.models import Product
 from farms.models import Farm
 from .serializers import OrderSerializer, CreateOrderSerializer, ProductSerializer
-from .utils import get_most_ordered_product
+from .serializers import MostSoughtProductSerializer
+from .utils import get_most_ordered_product 
+from rest_framework.views import APIView
 
 class OrderDetailAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
@@ -66,19 +69,30 @@ class RecommendedOrdersView(generics.ListAPIView):
         recommended_orders = Order.objects.filter(status='unassigned', product_id__in=product_ids)
         return recommended_orders
 
-class MostOrderedProductView(generics.RetrieveAPIView):
-    serializer_class = OrderSerializer
+class MostOrderedProductView(APIView):
+    serializer_class = ProductSerializer
     permission_classes = []
+    authentication_classes = []
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request:Request, *args, **kwargs):
         try:
+            num=request.query_params.get('num')
+            if not num:
+                num = 2
+            num = int(num)
+            products = []
             # Get the product with the most orders
-            most_ordered_product_id = get_most_ordered_product()
-            if most_ordered_product_id:
-                most_ordered_product = Product.objects.get(pk=most_ordered_product_id)
-                serializer = self.serializer_class(most_ordered_product)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'No product found.'}, status=status.HTTP_404_NOT_FOUND)
+            most_ordered_product_ids = get_most_ordered_product(num)
+            for id in most_ordered_product_ids:
+                pk = id[0]
+                product = Product.objects.get(pk=pk)
+                products.append(product)
+
+            serializer= MostSoughtProductSerializer(products, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+            # else:
+            #     return Response({'error': 'No product found.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
