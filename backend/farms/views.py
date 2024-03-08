@@ -49,6 +49,5 @@ class FarmListAPIView(generics.ListAPIView):
         if county_id:
             queryset = queryset.filter(location_county_id=county_id)
         if quantity_available:
-            queryset = queryset.filter(quantity_available__gt=quantity_available)
-
+            queryset = queryset.filter(quantity_available__gte=quantity_available)
         return queryset
