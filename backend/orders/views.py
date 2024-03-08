@@ -1,8 +1,13 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.request import Request
 from .models import Order
+from api.models import Product
 from farms.models import Farm
-from .serializers import OrderSerializer, CreateOrderSerializer
+from .serializers import OrderSerializer, CreateOrderSerializer, ProductSerializer
+from .serializers import MostSoughtProductSerializer
+from .utils import get_most_ordered_product 
+from rest_framework.views import APIView
 
 class OrderDetailAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
@@ -73,3 +78,32 @@ class RecommendedOrdersByCountyView(generics.ListAPIView):
         farmer_farm_counties = Farm.objects.filter(farmer_id=farmer_id).values_list('location_county_id', flat=True)
         farmer_farm_products = Farm.objects.filter(farmer_id=farmer_id).values_list('product_id', flat=True)
         return Order.objects.filter(county_id__in=farmer_farm_counties, product_id__in=farmer_farm_products, status='unassigned')
+
+
+class MostOrderedProductView(APIView):
+    serializer_class = ProductSerializer
+    permission_classes = []
+    authentication_classes = []
+
+    def get(self, request:Request, *args, **kwargs):
+        try:
+            num=request.query_params.get('num')
+            if not num:
+                num = 2
+            num = int(num)
+            products = []
+            # Get the product with the most orders
+            most_ordered_product_ids = get_most_ordered_product(num)
+            for id in most_ordered_product_ids:
+                pk = id[0]
+                product = Product.objects.get(pk=pk)
+                products.append(product)
+
+            serializer= MostSoughtProductSerializer(products, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+            # else:
+            #     return Response({'error': 'No product found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
