@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 function Banner() {
   const [slides, setSlides] = useState([
-    { slide_name: "Slide 1", slide_image: "slide1.jpg" },
-    { slide_name: "Slide 2", slide_image: "slide2.jpg" },
-    { slide_name: "Slide 3", slide_image: "slide3.jpg" },
-    { slide_name: "Slide 4", slide_image: "slide4.jpg" },
+    { slide_name: "Slide 1", slide_image: "farmer-slide1.webp" },
+    { slide_name: "Slide 2", slide_image: "farmer-slide2.webp" },
+    { slide_name: "Slide 3", slide_image: "farmer-slide3.webp" },
+    { slide_name: "Slide 4", slide_image: "farmer-slide4.webp" },
   ]);
   return (
     <div className="container" id="slider">

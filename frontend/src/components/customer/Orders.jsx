@@ -26,10 +26,10 @@ const MyOrders = () => {
   }, [user]);
 
   const renderAssignedTo = (order) => {
-    if (order.farmer_details) {
-      return `${order.farmer_details.first_name} ${order.farmer_details.last_name}`;
+    if (order.farmer) {
+      return `${order.farmer.first_name} ${order.farmer.last_name}`;
     } else {
-      return <button className="btn btn-primary" onClick={() => handleFindFarmer(order)}>Find</button>;
+      return <button className="btn btn-primary" onClick={() => handleFindFarmer(order)}>Find / View Bids</button>;
     }
   };
 

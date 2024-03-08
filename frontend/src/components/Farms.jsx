@@ -77,11 +77,11 @@ const Farms = () => {
                                         <p>Product: {farm.product_id.product_name}</p>
                                         <p>Location: {farm.location_subcounty_id.subcounty_name}, {farm.location_county_id.county_name}</p>
                                         <p>Quantity Available: {farm.quantity_available} {farm.product_id.unit}</p>
-                                        <p class='price'>KES {farm.price_per_unit} (per {farm.product_id.unit})</p>
+                                        <p class='price'>From <b>KES {farm.price_per_unit}</b> (per {farm.product_id.unit})</p>
                                         <p class='button'>
                                             <a href='customer/chat' class='btn btn-default'> Chat Farmer</a>
-                                            <a href='customer/order' class='btn btn-primary'>
-                                                Place Order
+                                            <a href='customer/createorder' class='btn btn-primary'>
+                                                Request Bid
                                             </a>
                                         </p>
                                     </div>

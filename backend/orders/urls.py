@@ -8,6 +8,7 @@ from .views import (
     OrderDeleteAPIView,
     OrderCreateAPIView,
     OrderListAPIView,
+    RecommendedOrdersByCountyView,
     RecommendedOrdersView,
 )
 
