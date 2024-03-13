@@ -75,7 +75,7 @@ const SideBar = (props) => {
               }
             >
               <li>
-                <a href="#">- My Orders</a>
+                <a href="/farmer/myorders">- My Orders</a>
               </li>
               <li>
                 <a href="/farmer/customerorders">- Customer Orders</a>
