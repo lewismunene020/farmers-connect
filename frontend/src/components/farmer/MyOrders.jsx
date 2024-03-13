@@ -14,58 +14,26 @@ const MyOrders = () => {
     const [deliveryDate, setDeliveryDate] = useState('');
 
     useEffect(() => {
-        const fetchUnassignedOrders = async () => {
+        const fetchAssignedOrders = async () => {
             try {
                 if (user) {
                     const userId = user.id;
-                    const response = await OrderService.getUnassignedOrders(userId);
+                    const response = await OrderService.getFarmerOrders(userId);
                     setOrders(response.data);
                 }
             } catch (error) {
-                console.error('Error fetching unassigned orders:', error);
+                console.error('Error fetching farmer orders:', error);
             }
         };
 
-        fetchUnassignedOrders();
+        fetchAssignedOrders();
     }, [user]);
 
-    const handleBidClick = (order) => {
+    const handleChatClick = (order) => {
         setSelectedOrder(order);
-        setShowModal(true);
+        // setShowModal(true);
     };
 
-    const handleBidSubmit = (e) => {
-        e.preventDefault();
-        if (!selectedOrder) {
-            console.error('No order selected.');
-            return;
-        }
-
-        // Check if required fields are filled out
-        if (!pricePerUnit || !deliveryDate) {
-            console.error('Please fill out all required fields.');
-            notify("error", "Please fill out all required fields.");
-            return;
-        }
-
-        const bidData = {
-            order: selectedOrder.order_id,
-            price_per_unit: pricePerUnit,
-            delivery_date: deliveryDate
-        };
-        console.log(bidData);
-        OrderService.createBid(bidData)
-            .then(() => {
-                console.log("Bid submitted successfully");
-                notify("success", "Bid submitted successfully");
-                setShowModal(false);
-            })
-            .catch((error) => {
-                console.error("Error creating bid:", error);
-                notify("error", unpackErrors(error.response.data));
-                setShowModal(false);
-            });
-    };
 
     return (
         <div id="content">
@@ -75,7 +43,7 @@ const MyOrders = () => {
                         <li>
                             <a href="/">Home</a>
                         </li>
-                        <li>Customer Orders</li>
+                        <li>My Orders</li>
                     </ul>
                 </div>
                 <div className="col-md-3">
@@ -83,7 +51,7 @@ const MyOrders = () => {
                 </div>
                 <div className="col-md-9">
                     <div className="box">
-                        <h3>All Customer Orders</h3>
+                        <h3>My Orders</h3>
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -106,7 +74,7 @@ const MyOrders = () => {
                                         <td>{`${order.customer.first_name} ${order.customer.last_name}`}</td>
                                         <td>{`${order.subcounty_id.subcounty_name}, ${order.county_id.county_name}`}</td>
                                         <td>
-                                            <button className="btn btn-primary" onClick={() => handleBidClick(order)}>Bid</button>
+                                            <button className="btn btn-primary" onClick={() => handleChatClick(order)}>Chat</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -116,21 +84,6 @@ const MyOrders = () => {
                 </div>
             </div>
 
-            {/* Modal for submitting bid */}
-            <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
-                <h2>Submit Bid</h2>
-                <form>
-                    <div className="form-group">
-                        <label>Price per {selectedOrder && selectedOrder.product_id.unit}:</label>
-                        <input type="text" className="form-control" required value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Delivery Date:</label>
-                        <input type="date" className="form-control" required value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} />
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={handleBidSubmit}>Submit Bid</button>
-                </form>
-            </Modal>
         </div>
     );
 };
