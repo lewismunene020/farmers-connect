@@ -9,6 +9,7 @@ import CreateOrder from "./components/customer/CreateOrder";
 import FarmerDashboard from "./components/farmer/Dashboard";
 import AddFarm from "./components/farmer/AddFarm";
 import MyFarms from "./components/farmer/MyFarms";
+import MyOrders from "./components/farmer/MyOrders";
 import CustomerOrders from "./components/farmer/CustomerOrders";
 import RecommendedOrders from "./components/farmer/RecommendedOrders";
 import Login from "./components/Login";
@@ -96,6 +97,15 @@ const AppRouter = () => {
           element={
             <ProtectedRoute permit={"farmer"}>
               <MyFarms />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/farmer/myorders"
+          element={
+            <ProtectedRoute permit={"farmer"}>
+              <MyOrders />
             </ProtectedRoute>
           }
         />
