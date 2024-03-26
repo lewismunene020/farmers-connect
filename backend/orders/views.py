@@ -1,10 +1,11 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.request import Request
+from django.db.models import Count
 from .models import Order
 from api.models import Product
 from farms.models import Farm
-from .serializers import OrderSerializer, CreateOrderSerializer, ProductSerializer
+from .serializers import DemandByLocationSerializer, OrderSerializer, CreateOrderSerializer, ProductSerializer
 from .serializers import MostSoughtProductSerializer
 from .utils import get_most_ordered_product 
 from rest_framework.views import APIView
@@ -106,4 +107,20 @@ class MostOrderedProductView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class DemandByLocationAPIView(APIView):
+    permission_classes = []
+    def get(self, request, product_id):
+        try:
+            # Query the database to get the count of orders for the given product by county
+            demand_by_location_data = Order.objects.filter(product_id=product_id).values('county_id__county_name').annotate(count=Count('order_id'))
 
+            # Prepare the response data
+            response_data = [{'county_name': item['county_id__county_name'], 'count': item['count']} for item in demand_by_location_data]
+
+            # Serialize the response data
+            serializer = DemandByLocationSerializer(response_data, many=True)
+
+            # Return the serialized data in the response
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
