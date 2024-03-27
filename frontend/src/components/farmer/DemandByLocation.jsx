@@ -89,8 +89,23 @@ const DemandByLocation = () => {
     
 
     const getColor = (count) => {
-        return count === 1 ? "#ff0000" : count === 2 ? "#00ff00" : "#0000ff";
+        // Define a gradient scale of shades of red
+        const gradientScale = {
+            1: "#FFCCCC",  // Light red
+            2: "#FF6666",  // Medium red
+            3: "#FF0000",  // Dark red
+            4: "#CC0000",  // Darker red
+            5: "#990000",  // Even darker red
+        
+        };
+    
+        // Calculate the range index based on the count
+        const rangeIndex = Math.ceil(count / 2); // Divide count by 2 and round up to get the range index
+    
+        // Return the color from the gradient scale based on the range index
+        return gradientScale[rangeIndex] || "#990000"; // Default to 'Even darker red' for counts not in the scale
     };
+    
 
     useEffect(() => {
         var container = L.DomUtil.get("map");
