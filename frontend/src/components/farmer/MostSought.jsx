@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import SideBar from "./SideBar";
-import MostOrdersProducts from "../../services/MostSoughtService";
+import ReportService from "../../services/ReportService";
 
 const MostSoughtProducts = () => {
   const [chartData, setChartData] = useState([]);
@@ -9,7 +9,7 @@ const MostSoughtProducts = () => {
   const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
-    MostOrdersProducts.getMostOrdered().then((res) => {
+    ReportService.getMostOrdered().then((res) => {
       let data = res.data;
       if (data) {
         let pieChartData = data.map((item) => ({

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import SideBar from "./SideBar";
-import MostOrdersProducts from "../../services/MostSoughtService";
+import MostOrdersProducts from "../../services/ReportService";
 
 const DemandByLocation = () => {
   const [chartData, setChartData] = useState([]);
