@@ -13,5 +13,5 @@ class Order(models.Model):
     delivered = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
     offered_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    county_id = models.ForeignKey(County, on_delete=models.CASCADE)  # Assuming County model is defined
+    county_id = models.ForeignKey(County, on_delete=models.CASCADE)
     subcounty_id = models.ForeignKey(SubCounty, on_delete=models.CASCADE)

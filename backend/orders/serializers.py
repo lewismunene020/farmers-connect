@@ -25,6 +25,10 @@ class MostSoughtProductSerializer(serializers.ModelSerializer):
     def get_count(self, obj):
         return Order.objects.filter(product_id=obj.product_id).count()
 
+class DemandByLocationSerializer(serializers.Serializer):
+    county_name = serializers.CharField()
+    count = serializers.IntegerField()
+
 class CountySerializer(serializers.ModelSerializer):
     class Meta:
         model = County

@@ -15,8 +15,9 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-const MostOrdersProducts = {
+const ReportService = {
   getMostOrdered: () => api.get("most_ordered_product/?num=3"),
+  getDemandByLocation: (productId) => api.get(`demand_by_location/${productId}`),
 };
 
-export default MostOrdersProducts;
+export default ReportService;
