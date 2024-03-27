@@ -1,4 +1,3 @@
-// Import necessary dependencies
 import React, { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import ReportService from "../../services/ReportService";
@@ -11,7 +10,6 @@ const DemandByLocation = () => {
     const [products, setProducts] = useState([]);
     const [categoryId, setCategoryId] = useState("");
     const [productId, setProductId] = useState("");
-    const [productName, setProductName] = useState("");
     const [map, setMap] = useState(null);
     const [countyData, setCountyData] = useState([]);
 
@@ -20,10 +18,10 @@ const DemandByLocation = () => {
     }, []);
 
     useEffect(() => {
-        if (map) {
+        if (countyData.length >= 0 && map) {
             fetchCountyData();
         }
-    }, [map]);
+    }, [countyData, map]);
 
     const fetchCategories = () => {
         OrderService.getCategories()
@@ -42,7 +40,6 @@ const DemandByLocation = () => {
         const selectedProduct = products.find(
             (product) => product.product_id === productId
         );
-        setProductName(selectedProduct.product_name);
         setProductId(productId);
     };
 
@@ -50,6 +47,7 @@ const DemandByLocation = () => {
         e.preventDefault();
         ReportService.getDemandByLocation(productId)
             .then((res) => {
+                console.log("Demand By Location:", res.data);
                 setCountyData(res.data);
             })
             .catch((error) => {
@@ -58,33 +56,39 @@ const DemandByLocation = () => {
     };
 
     const fetchCountyData = () => {
-        if (countyData.length === 0) return;
-
-        countyData.forEach((county) => {
-            fetch(`/geojson/${county.county_name.toLowerCase().replace(/\s/g, "-")}.json`)
-                .then((res) => res.json())
-                .then((data) => {
-                    // Add GeoJSON data to the map
-                    L.geoJSON(data, {
-                        style: function (feature) {
-                            return {
-                                fillColor: getColor(county.count),
-                                fillOpacity: 0.5,
-                                color: "#000",
-                                weight: 1,
-                            };
-                        },
-                    }).addTo(map);
-                })
-                .catch((error) => console.error("Error fetching GeoJSON data:", error));
-        });
+        // Check if map and county data are both available
+        if (map) {
+            // Loop through each layer on the map and remove non-tile layers
+            map.eachLayer((layer) => {
+                if (!layer._url) {
+                    map.removeLayer(layer);
+                }
+            });
+    
+            // Loop through each county data
+            countyData.forEach((county) => {
+                fetch(`/geojson/${county.county_name.toLowerCase().replace(/\s/g, "-")}.json`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // Add GeoJSON data to the map
+                        L.geoJSON(data, {
+                            style: function (feature) {
+                                return {
+                                    fillColor: getColor(county.count),
+                                    fillOpacity: 0.5,
+                                    color: "#000",
+                                    weight: 1,
+                                };
+                            },
+                        }).addTo(map);
+                    })
+                    .catch((error) => console.error("Error fetching GeoJSON data:", error));
+            });
+        }
     };
+    
 
-    // Function to determine fill color based on count
     const getColor = (count) => {
-        // We can define our own logic here to determine fill color based on count
-        // For example, we can use a gradient scale or predefined color codes
-        // Here's a simple example:
         return count === 1 ? "#ff0000" : count === 2 ? "#00ff00" : "#0000ff";
     };
 
@@ -94,7 +98,7 @@ const DemandByLocation = () => {
         if (container != null) {
             container._leaflet_id = null;
         }
-        const map = L.map("map").setView([51.505, -0.09], 13);
+        const map = L.map("map").setView([1.2921, 36.8219], 6);
         setMap(map);
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
