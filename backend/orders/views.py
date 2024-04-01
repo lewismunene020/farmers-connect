@@ -124,3 +124,14 @@ class DemandByLocationAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class OrdersWithNoSupplyAPIView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = []
+
+    def get_queryset(self):
+        # Get all orders ids where the product_id is not in any farm
+        orders_with_supply = Farm.objects.values_list('product_id', flat=True)
+        queryset = Order.objects.exclude(product_id__in=orders_with_supply)
+        # print(queryset)
+        return queryset

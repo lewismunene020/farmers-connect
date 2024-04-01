@@ -15,3 +15,4 @@ class Order(models.Model):
     offered_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     county_id = models.ForeignKey(County, on_delete=models.CASCADE)
     subcounty_id = models.ForeignKey(SubCounty, on_delete=models.CASCADE)
+    
