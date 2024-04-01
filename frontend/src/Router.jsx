@@ -24,6 +24,7 @@ import ProtectedRoute from "./ProtectedRouter";
 import "./assets/product-card.css";
 import MostSoughtProducts from "./components/farmer/MostSought";
 import DemandByLocation from "./components/farmer/DemandByLocation";
+import OrdersWithNoSupply from "./components/farmer/OrdersWithNoSupply";
 
 const AppRouter = () => {
   return (
@@ -80,6 +81,15 @@ const AppRouter = () => {
           element={
             <ProtectedRoute permit={"farmer"}>
               <MostSoughtProducts />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/farmer/orders-with-no-supply"
+          element={
+            <ProtectedRoute permit={"farmer"}>
+              <OrdersWithNoSupply />
             </ProtectedRoute>
           }
         />
