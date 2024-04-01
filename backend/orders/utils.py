@@ -17,5 +17,4 @@ def get_most_ordered_product(quantity):
     except Exception as e:
         print(e)
         return None
-
-    
+       

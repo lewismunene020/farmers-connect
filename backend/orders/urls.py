@@ -11,9 +11,11 @@ from .views import (
     OrderListAPIView,
     RecommendedOrdersByCountyView,
     RecommendedOrdersView,
+    OrdersWithNoSupplyAPIView,
 )
 
 urlpatterns = [
+    
     path('api/order/<int:pk>/', OrderDetailAPIView.as_view(), name='order-detail'),
     path('api/orders/customer/<int:customer_id>/',
          CustomerOrdersAPIView.as_view(), name='customer-orders'),
@@ -33,4 +35,5 @@ urlpatterns = [
          name='most-ordered-product'),
     path('api/demand_by_location/<int:product_id>/',
          DemandByLocationAPIView.as_view(), name='demand_by_location'),
+    path('api/orders/no-supply', OrdersWithNoSupplyAPIView.as_view(), name='orders-with-no-supply'),
 ]
