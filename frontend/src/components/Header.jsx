@@ -103,12 +103,15 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-            <Link
+            {user && !user.is_farmer && (
+               <Link
               to="/customer/createorder"
               className="btn navbar-btn btn-primary right"
             >
               <span>Create Order</span>
             </Link>
+            )}
+           
             <div className="navbar-collapse collapse right">
               <button
                 className="btn btn-primary navbar-btn"
