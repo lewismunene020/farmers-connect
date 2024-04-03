@@ -10,9 +10,11 @@ class CategoryList(generics.ListAPIView):
     permission_classes = []
 
 class ProductList(generics.ListAPIView):
+
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = []
+    authentication_classes = []
 
 class ProductsByCategory(generics.ListAPIView):
     serializer_class = ProductSerializer

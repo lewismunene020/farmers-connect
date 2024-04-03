@@ -125,6 +125,34 @@ class DemandByLocationAPIView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class DemandByMonthOfTheYearAPIView(APIView):
+    permission_classes = []
+    def get(self, request, product_id):
+        try:
+            # Query the database to get the count of orders for the given product by month
+            demand_by_month_data = Order.objects.filter(product_id=product_id).values('created_at__month').annotate(count=Count('order_id'))
+
+            # Prepare the response data
+            response_data = [{'month': item['created_at__month'], 'count': item['count']} for item in demand_by_month_data]
+
+            # lets add all other  months to the response data that have 0 count
+            months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            for month in months:
+                if not any(item['month'] == month for item in response_data):
+                    response_data.append({'month': month, 'count': 0})
+            # sort  them by  the  month
+            
+            response_data.sort(key=lambda x: x['month'])
+
+            # Serialize the response data
+            # serializer = DemandByLocationSerializer(response_data, many=True)
+
+            # Return the serialized data in the response
+            # return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(response_data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class OrdersWithNoSupplyAPIView(generics.ListAPIView):
     serializer_class = OrderSerializer
     permission_classes = []

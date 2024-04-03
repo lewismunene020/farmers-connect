@@ -47,7 +47,15 @@ class FarmerSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = [
+            "id",
+            "email" ,
+            "is_farmer",
+            "first_name",
+            "last_name",
+            "is_customer",
+            
+        ]
 
 class OrderSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer()
