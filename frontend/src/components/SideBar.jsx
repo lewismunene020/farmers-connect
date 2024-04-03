@@ -1,4 +1,3 @@
-// SideBar.js
 import React, { useState, useEffect } from 'react';
 import PublicFarmService from '../services/PublicFarmService';
 
@@ -12,6 +11,10 @@ const SideBar = ({ onProductClick }) => {
     PublicFarmService.getCategories()
       .then(response => {
         setCategories(response.data);
+        // Fetch products for each category
+        response.data.forEach(category => {
+          fetchProductsByCategory(category.category_id);
+        });
       })
       .catch(error => {
         console.error('Error fetching categories:', error);
@@ -22,10 +25,10 @@ const SideBar = ({ onProductClick }) => {
     // Fetch products by category from the API
     PublicFarmService.getProductsByCategory(categoryId)
       .then(response => {
-        setProductsByCategory({
-          ...productsByCategory,
+        setProductsByCategory(prevProductsByCategory => ({
+          ...prevProductsByCategory,
           [categoryId]: response.data
-        });
+        }));
       })
       .catch(error => {
         console.error(`Error fetching products for category ${categoryId}:`, error);
@@ -34,12 +37,18 @@ const SideBar = ({ onProductClick }) => {
 
   const handleMenuClick = (categoryId) => {
     setActiveMenu(activeMenu === categoryId ? '' : categoryId);
-    fetchProductsByCategory(categoryId);
+    if (!productsByCategory[categoryId]) {
+      fetchProductsByCategory(categoryId);
+    }
   };
 
   const handleProductClick = (productId) => {
     console.log("Selected Product ID:", productId); // Log the selected product ID
     onProductClick(productId);
+  };
+
+  const getProductCountByCategory = (categoryId) => {
+    return productsByCategory[categoryId] ? productsByCategory[categoryId].length : 0;
   };
 
   return (
@@ -49,7 +58,7 @@ const SideBar = ({ onProductClick }) => {
           {categories.map(category => (
             <li key={category.category_id}>
               <a href="#" onClick={() => handleMenuClick(category.category_id)}>
-                <i className="fa fa-folder"></i> {category.category_name.toUpperCase()}
+                <i className="fa fa-folder"></i> {category.category_name.toUpperCase()} ({getProductCountByCategory(category.category_id)})
               </a>
               {activeMenu === category.category_id && productsByCategory[category.category_id] && (
                 <ul className="nav-pills nav-stacked nav">
