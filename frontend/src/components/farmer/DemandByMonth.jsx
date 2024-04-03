@@ -9,7 +9,7 @@ const DemandByMonth = () => {
   const [options, setOptions] = useState([]);
   const [series, setSeries] = useState([]);
   const [products, setProducts] = useState([]);
-  const [productId, setProductId] = useState(3);
+  const [productId, setProductId] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   // lets load  the  products

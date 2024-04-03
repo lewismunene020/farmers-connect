@@ -16,7 +16,7 @@ api.interceptors.request.use((config) => {
 });
 
 const ReportService = {
-  getMostOrdered: () => api.get("most_ordered_product/?num=3"),
+  getMostOrdered: () => api.get("most_ordered_product/?num=5"),
   getDemandByLocation: (productId) =>
     api.get(`demand_by_location/${productId}`),
   getOrdersWithNoSupply: () => api.get("orders/no-supply"),
