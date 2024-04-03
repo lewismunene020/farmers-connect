@@ -101,10 +101,12 @@ const SideBar = (props) => {
                 <Link to="/farmer/most-sought">- Most Sought Products</Link>
               </li>
               <li>
-                <Link to="/farmer/orders-with-no-supply">- Orders Without Supply</Link>
+                <Link to="/farmer/orders-with-no-supply">
+                  - Orders Without Supply
+                </Link>
               </li>
               <li>
-                <a href="#">- Demand by Month of Year</a>
+                <a href="/farmer/demand-by-month/">- Demand by Month of Year</a>
               </li>
               <li>
                 <a href="/farmer/demand-by-location">- Demand by Location</a>

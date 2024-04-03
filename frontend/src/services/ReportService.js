@@ -17,8 +17,17 @@ api.interceptors.request.use((config) => {
 
 const ReportService = {
   getMostOrdered: () => api.get("most_ordered_product/?num=3"),
-  getDemandByLocation: (productId) => api.get(`demand_by_location/${productId}`),
-  getOrdersWithNoSupply: () => api.get('orders/no-supply'),
+  getDemandByLocation: (productId) =>
+    api.get(`demand_by_location/${productId}`),
+  getOrdersWithNoSupply: () => api.get("orders/no-supply"),
+  /**
+   * Retrieves demand data for a specific product by month of the year.
+   *
+   * @param {type} productId - The ID of the product to retrieve demand data for.
+   * @return {type} The demand data for the specified product by month of the year.
+   */
+  getDemandByMonthOfTheYear: (productId) =>
+    api.get(`demand_by_month/${productId}/`),
 };
 
 export default ReportService;

@@ -12,6 +12,7 @@ from .views import (
     RecommendedOrdersByCountyView,
     RecommendedOrdersView,
     OrdersWithNoSupplyAPIView,
+    DemandByMonthOfTheYearAPIView
 )
 
 urlpatterns = [
@@ -36,4 +37,7 @@ urlpatterns = [
     path('api/demand_by_location/<int:product_id>/',
          DemandByLocationAPIView.as_view(), name='demand_by_location'),
     path('api/orders/no-supply', OrdersWithNoSupplyAPIView.as_view(), name='orders-with-no-supply'),
+
+#     demand  by month of the year
+    path('api/demand_by_month/<int:product_id>/',DemandByMonthOfTheYearAPIView.as_view(), name='demand_by_month_of_the_year'),
 ]
