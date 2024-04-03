@@ -10,6 +10,7 @@ const OrdersWithNoSupply = () => {
     useEffect(() => {
         // Function to fetch orders with no supply
         const fetchOrdersWithNoSupply = async () => {
+
             try{
                 const response = await ReportService.getOrdersWithNoSupply()
                 const productsWithNoSupply = response.data.map(order =>
@@ -58,4 +59,5 @@ const OrdersWithNoSupply = () => {
   );
 
 }
+
  export default OrdersWithNoSupply;

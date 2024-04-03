@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../assets/product-card.css";
 
 const ProductCard = ({ product }) => {
+
   return (
     <div className="product">
       <Link className="image" to={`/product/details/?id=${product.id}`}>
@@ -12,6 +13,7 @@ const ProductCard = ({ product }) => {
           alt={product.title}
         />
       </Link>
+      
       <div className="text">
         <h3>
           <Link to={`/product/details/?id=${product.id}`}>{product.title}</Link>

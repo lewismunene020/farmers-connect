@@ -14,6 +14,7 @@ const ProductDetails = () => {
   };
 
   return (
+    
     <div>
       {/* Breadcrumb */}
       <ul className="breadcrumb">

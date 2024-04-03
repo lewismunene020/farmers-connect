@@ -37,6 +37,7 @@ const SideBar = (props) => {
           {farmerName}
         </h3>
       </div>
+      
       <div className="panel-body">
         <ul className="nav-pills nav-stacked nav">
           <li className={activeMenu === "dashboard" ? "active" : ""}>
