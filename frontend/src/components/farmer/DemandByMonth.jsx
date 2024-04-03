@@ -6,10 +6,11 @@ import OrderService from "../../services/OrderService";
 
 const DemandByMonth = () => {
   const [chartData, setChartData] = useState([]);
-  const [options, setOptions] = useState(null);
+  const [options, setOptions] = useState([]);
   const [series, setSeries] = useState([]);
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(3);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // lets load  the  products
 
@@ -18,6 +19,10 @@ const DemandByMonth = () => {
       .then((res) => setProducts(res.data))
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
+
+  // useEffect(() => {
+  //   console.log("Products are", products);
+  // }, [products]);
 
   useEffect(() => {
     if (productId === null || productId === "" || productId === undefined) {
@@ -28,10 +33,12 @@ const DemandByMonth = () => {
       let data = res.data;
       if (data) {
         let chartSeriesData = data.map((item) => item.count);
-        setSeries({
-          name: "Orders",
-          data: chartSeriesData,
-        });
+        setSeries([
+          {
+            name: "Count",
+            data: chartSeriesData,
+          },
+        ]);
 
         let chartOptions = {
           chart: {
@@ -59,15 +66,20 @@ const DemandByMonth = () => {
     });
   }, [productId]);
 
-  useEffect(() => {
-    console.log("Chart series data", series);
-    console.log("Chart options", options);
-  }, [series, options]);
+  // useEffect(() => {
+  // console.log("Chart series data", series);
+  // console.log("Chart options", options);
+  // }, [series, options]);
   const handleProductChange = (productId) => {
-    // const selectedProduct = products.filter(
-    //   (product) => product.product_id === productId
-    // );
-    // console.log(selectedProduct);
+    const currentProduct = products.find((product) => {
+      // console.log("Product ID:", product.product_id);
+      // console.log("ProductID", productId);
+      return product.product_id == productId;
+    });
+    console.log("current Product:", currentProduct);
+    if (currentProduct) {
+      setSelectedProduct(currentProduct);
+    }
     setProductId(productId);
   };
 
@@ -113,8 +125,15 @@ const DemandByMonth = () => {
             </form>
           </div>
           <div className="box">
-            <h3>Demand By Month of the Year</h3>
-            {series && (
+            {selectedProduct ? (
+              <h3>
+                Demand By Month of the Year for {selectedProduct.product_name}
+              </h3>
+            ) : (
+              <h3>Demand By Month of the Year</h3>
+            )}
+
+            {series.length > 0 && (
               <Chart
                 options={options}
                 series={series}
