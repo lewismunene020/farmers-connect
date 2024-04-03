@@ -21,6 +21,10 @@ body{
 }
 #top .offer .btn{
     text-transform: uppercase;
+    position: relative;
+    left: 970px;
+    bottom: 40px;
+    
 }
 @media(max-width: 991px){
     #top .offer{
