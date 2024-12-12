@@ -16,4 +16,7 @@ class Order(models.Model):
     county_id = models.ForeignKey(County, on_delete=models.CASCADE)
     subcounty_id = models.ForeignKey(SubCounty, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return f"{self.product_id.product_name} - {self.pk}"
     
